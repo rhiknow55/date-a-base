@@ -1,0 +1,23 @@
+{
+  "name": "date-a-base",
+  "version": "1.0.0",
+  "description": "Date a base. Group project for CPSC304. A social web app where you attain a PH level with other bases.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhiknow55/date-a-base.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhiknow55/date-a-base/issues"
+  },
+  "homepage": "https://github.com/rhiknow55/date-a-base#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
