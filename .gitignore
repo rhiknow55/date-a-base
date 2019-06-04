@@ -1,3 +1,11 @@
+#custom gitignore
+
+.idea/*
+
+
+
+# Below is Git's Node.js gitignore
+
 # Logs
 logs
 *.log
