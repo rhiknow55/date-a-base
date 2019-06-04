@@ -37,7 +37,7 @@ var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   //password: secret.mysql_password
-  password: "MySqlRoot-0605",
+  password: "Bestgroupever!",
   database: "date-a-base"
 });
 
@@ -71,12 +71,13 @@ con.connect(function(err) {
   console.log("Connected!");
   //var birthday = new Date('1988-02-10'); //todo: not working, null value inserted
   //var horoscope = 1;//todo: e.g. userHoroscope = getHoroscope(birthday), use enum
+  /*
   var sql = "INSERT INTO users (userId, loginName, password, username, emailAddress, birthday, horoscope)" +
       " VALUES (00011, 'jamieTestUser5', 'dateabase1', 'jamie test user', 'jamie@gmail.com', Date('1958-02-10'), 1)";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record inserted");
-  });
+  });   */
 });
 
 //con.end();//todo: we can't add this line here, error occurs, Error: Cannot enqueue Query after invoking quit.
