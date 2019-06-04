@@ -32,7 +32,7 @@ var mysql = require('mysql');
 
 //note: a database named "date-a-base" need to be created before connection
 //todo: for security reason (since this would be an open source project), don't put password in the code,
-// instaed, write it in a separate file
+// instead, write it in a separate file
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -65,13 +65,14 @@ var con = mysql.createConnection({
 
 
 //sample data insertion
+//all sql statements (except connection and table creation) should be in request handler methods
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
   //var birthday = new Date('1988-02-10'); //todo: not working, null value inserted
   //var horoscope = 1;//todo: e.g. userHoroscope = getHoroscope(birthday), use enum
   var sql = "INSERT INTO users (userId, loginName, password, username, emailAddress, birthday, horoscope)" +
-      " VALUES (00010, 'jamieTestUser4', 'dateabase1', 'jamie test user', 'jamie@gmail.com', Date('1998-02-10'), 1)";
+      " VALUES (00011, 'jamieTestUser5', 'dateabase1', 'jamie test user', 'jamie@gmail.com', Date('1958-02-10'), 1)";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record inserted");
