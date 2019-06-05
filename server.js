@@ -11,6 +11,16 @@ app.get('/express_backend', (req, res) => {
     res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
 });
 
+// userdata route
+app.get('/user_data', (req, res) => {
+   res.send({
+       username: "testUsername",
+       horoscope: "testHoro",
+       log: 100
+   })
+});
+
+
 /*
 class Square {
     constructor(height, width)
@@ -71,17 +81,17 @@ var con = mysql.createConnection({
 
 //sample data insertion
 //all sql statements (except connection and table creation) should be in request handler methods
-con.connect(function (err) {
-    if (err) throw err;
-    console.log("Connected!");
-    //var birthday = new Date('1988-02-10'); //todo: not working, null value inserted
-    //var horoscope = 1;//todo: e.g. userHoroscope = getHoroscope(birthday), use enum
-    var sql = "INSERT INTO users (userId, loginName, password, username, emailAddress, birthday, horoscope)" +
-        " VALUES (00011, 'jamieTestUser5', 'dateabase1', 'jamie test user', 'jamie@gmail.com', Date('1958-02-10'), 1)";
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("1 record inserted");
-    });
-});
+// con.connect(function (err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+//     //var birthday = new Date('1988-02-10'); //todo: not working, null value inserted
+//     //var horoscope = 1;//todo: e.g. userHoroscope = getHoroscope(birthday), use enum
+//     var sql = "INSERT INTO users (userId, loginName, password, username, emailAddress, birthday, horoscope)" +
+//         " VALUES (00011, 'jamieTestUser5', 'dateabase1', 'jamie test user', 'jamie@gmail.com', Date('1958-02-10'), 1)";
+//     con.query(sql, function (err, result) {
+//         if (err) throw err;
+//         console.log("1 record inserted");
+//     });
+// });
 
 //con.end();//todo: we can't add this line here, error occurs, Error: Cannot enqueue Query after invoking quit.
