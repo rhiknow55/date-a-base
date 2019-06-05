@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Feed from './Feed.js';
 
 class User extends Component {
     state = {
@@ -30,12 +31,40 @@ class User extends Component {
     render() {
         return (
             <div className="User">
-                <p className="User-username">Username = {this.state.username}</p>
-                <p className="User-horoscope">Horoscope = {this.state.horoscope}</p>
-                <p className="User-log">Log = {this.state.log}</p>
+                <Profile
+                    username={this.state.username}
+                    horoscope={this.state.horoscope}
+                    log={this.state.log}
+                    />
+                <Feed />
             </div>
         );
     }
 }
+
+class Profile extends Component {
+    state = {
+        username: null,
+        horoscope: null,
+        log: 0
+    };
+
+    constructor(props)
+    {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div>
+                <p>This is Profile</p>
+                Username = {this.state.username}
+                Horoscope = {this.state.horoscope}
+                LOG = {this.state.log}
+            </div>
+        );
+    }
+}
+
 
 export default User;

@@ -21,21 +21,6 @@ app.get('/user_data', (req, res) => {
 });
 
 
-/*
-class Square {
-    constructor(height, width)
-    {
-        this.height = height;
-        this.width = width;
-    }
-}
-// Ryan test
-app.get('/ryan_test', (req, res) => {
-    const square = new Square(10, 50);
-    res.send({ express: square })
-});*/
-
-
 //create connection to mysql
 //todo: everything related to mysql is better to be written in another file (to make server.js look cleaner)
 var mysql = require('mysql');
