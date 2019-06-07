@@ -1,82 +1,32 @@
+'use strict';
+const http = require('http');
+const port = process.env.PORT || 1337;
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 5000;
+const registration = require('/registration');
 
-// console.log that your server is up and running
-app.listen(port, () => console.log(`Listening on port ${port}`));
 
-// create a GET route
-app.get('/express_backend', (req, res) => {
+app.get('/', function (req, res) { res.send(`hello from ${y.x}`); });
 
-    res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
+// user registration @ /register
+app.post('/register', function (req, res) {
+    let username = req.body.username;
+    let password = req.body.password;
+    // ETC
+
+    if (registration.username_available(username)) {
+        registration.register_new_user(
+            username, password, // ETC
+        );
+        res.send("success"); // TODO: use JSON
+    }
+    else {
+        res.send("failed"); // TODO: use JSON
+    }
 });
 
-// userdata route
-app.get('/user_data', (req, res) => {
-   res.send({
-       username: "testUsername",
-       horoscope: "testHoro",
-       log: 100
-   })
-});
 
 
-//create connection to mysql
-//todo: everything related to mysql is better to be written in another file (to make server.js look cleaner)
-var mysql = require('mysql');
-
-// get password from file
-// file name must be "secret", no extension
-// it must be plaintext with only the password inside
-var fs = require('fs');
-var mysql_password = fs.readFileSync('secret', 'utf8');
-
-//note: a database named "date-a-base" need to be created before connection
-//todo: for security reason (since this would be an open source project), don't put password in the code,
-// instead, write it in a separate file
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: mysql_password,
-    database: "date-a-base"
-});
-
-//create tables
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-//   var sqlCreateSA = "CREATE TABLE systemAdmins (userId INT PRIMARY KEY, loginName VARCHAR(255) NOT NULL UNIQUE" +
-//       ", password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, emailAddress VARCHAR(255) NOT NULL)";
-//   con.query(sqlCreateSA, function (err, result) {
-//     if (err) throw err;
-//     console.log("Table systemAdmins created");
-//   });
-//
-//   var sqlCreateUsers = "CREATE TABLE users (userId INT PRIMARY KEY, loginName VARCHAR(255) NOT NULL UNIQUE" +
-//       ", password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, emailAddress VARCHAR(255) NOT NULL" +
-//       ", birthday DATE NOT NULL, horoscope INT)";
-//   con.query(sqlCreateUsers, function (err, result) {
-//     if (err) throw err;
-//     console.log("Table users created");
-//   });
-//
-//   //todo: create all other tables here
-// });
+app.listen(port, () => console.log(`listening on port ${port}`));
 
 
-//sample data insertion
-//all sql statements (except connection and table creation) should be in request handler methods
-// con.connect(function (err) {
-//     if (err) throw err;
-//     console.log("Connected!");
-//     //var birthday = new Date('1988-02-10'); //todo: not working, null value inserted
-//     //var horoscope = 1;//todo: e.g. userHoroscope = getHoroscope(birthday), use enum
-//     var sql = "INSERT INTO users (userId, loginName, password, username, emailAddress, birthday, horoscope)" +
-//         " VALUES (00011, 'jamieTestUser5', 'dateabase1', 'jamie test user', 'jamie@gmail.com', Date('1958-02-10'), 1)";
-//     con.query(sql, function (err, result) {
-//         if (err) throw err;
-//         console.log("1 record inserted");
-//     });
-// });
-
-//con.end();//todo: we can't add this line here, error occurs, Error: Cannot enqueue Query after invoking quit.
