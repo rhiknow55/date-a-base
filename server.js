@@ -20,6 +20,24 @@ app.get('/user_data', (req, res) => {
    })
 });
 
+app.get('/retrieve_posts', (req, res) => {
+    let recentPosts = [];
+
+    let numberOfPosts = req.query.numberOfPosts;
+    for (let i = 0; i < numberOfPosts; ++i)
+    {
+        recentPosts.push()
+    }
+
+    res.send({postIds: recentPosts})
+});
+
+// TODO: Method that retrieves recent posts from via sql
+getRecentPosts = (numOfPosts) =>
+{
+
+}
+
 
 //create connection to mysql
 //todo: everything related to mysql is better to be written in another file (to make server.js look cleaner)

@@ -42,25 +42,15 @@ class User extends Component {
     }
 }
 
-class Profile extends Component {
-    state = {
-        username: null,
-        horoscope: null,
-        log: 0
-    };
-
-    constructor(props)
-    {
-        super(props);
-    }
-
+class Profile extends Component
+{
     render() {
         return (
             <div>
                 <p>This is Profile</p>
-                Username = {this.state.username}
-                Horoscope = {this.state.horoscope}
-                LOG = {this.state.log}
+                Username = {this.props.username}
+                Horoscope = {this.props.horoscope}
+                LOG = {this.props.log}
             </div>
         );
     }
