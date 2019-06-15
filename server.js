@@ -1,9 +1,29 @@
-const express = require('express');
-const app = express();
 const port = process.env.PORT || 5000;
+var express    = require("express");
+var login = require('./routes/loginroutes');
+var bodyParser = require('body-parser');
+var app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+var router = express.Router();
+// test route
+router.get('/', function(req, res) {
+    res.json({ message: 'welcome to our upload module apis' });
+});
+//route to handle user registration
+router.post('/register',login.register);
+router.post('/login',login.login)
+app.use('/api', router);
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+// --
 
 // create a GET route
 app.get('/express_backend', (req, res) => {
@@ -58,43 +78,3 @@ var con = mysql.createConnection({
     password: mysql_password,
     database: "date-a-base"
 });
-
-//create tables
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-//   var sqlCreateSA = "CREATE TABLE systemAdmins (userId INT PRIMARY KEY, loginName VARCHAR(255) NOT NULL UNIQUE" +
-//       ", password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, emailAddress VARCHAR(255) NOT NULL)";
-//   con.query(sqlCreateSA, function (err, result) {
-//     if (err) throw err;
-//     console.log("Table systemAdmins created");
-//   });
-//
-//   var sqlCreateUsers = "CREATE TABLE users (userId INT PRIMARY KEY, loginName VARCHAR(255) NOT NULL UNIQUE" +
-//       ", password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, emailAddress VARCHAR(255) NOT NULL" +
-//       ", birthday DATE NOT NULL, horoscope INT)";
-//   con.query(sqlCreateUsers, function (err, result) {
-//     if (err) throw err;
-//     console.log("Table users created");
-//   });
-//
-//   //todo: create all other tables here
-// });
-
-
-//sample data insertion
-//all sql statements (except connection and table creation) should be in request handler methods
-// con.connect(function (err) {
-//     if (err) throw err;
-//     console.log("Connected!");
-//     //var birthday = new Date('1988-02-10'); //todo: not working, null value inserted
-//     //var horoscope = 1;//todo: e.g. userHoroscope = getHoroscope(birthday), use enum
-//     var sql = "INSERT INTO users (userId, loginName, password, username, emailAddress, birthday, horoscope)" +
-//         " VALUES (00011, 'jamieTestUser5', 'dateabase1', 'jamie test user', 'jamie@gmail.com', Date('1958-02-10'), 1)";
-//     con.query(sql, function (err, result) {
-//         if (err) throw err;
-//         console.log("1 record inserted");
-//     });
-// });
-
-//con.end();//todo: we can't add this line here, error occurs, Error: Cannot enqueue Query after invoking quit.
