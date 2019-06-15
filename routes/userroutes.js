@@ -2,11 +2,16 @@ var connection = require('../connection.js');
 
 // '/user_data'
 exports.userData = function(req, res){
-    res.send({
-        username: "testUsername",
-        horoscope: "testHoro",
-        log: 100
-    })
+    connection.query('SELECT username, horoscope, log FROM users WHERE loginname = ?', req.query.loginName,
+        function (err, rows, fields) {
+            if (err) throw err;
+
+            res.send({
+                "username": rows[0].username,
+                "horoscope": rows[0].horoscope,
+                "log": rows[0].log
+            })
+        })
 };
 
 // '/retrieve_posts'
