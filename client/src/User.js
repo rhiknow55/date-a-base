@@ -19,8 +19,8 @@ class User extends Component {
     }
 
     retrieveUserData = async () => {
-        var loginName = 'user5'
-        const response = await fetch('/user_data?loginName=' + loginName);
+        var userId = 1
+        const response = await fetch('/user_data?userId=' + userId);
         const json = await response.json();
 
         if (response.status !== 200) {

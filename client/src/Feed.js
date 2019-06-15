@@ -5,7 +5,7 @@ const NUMBER_OF_POSTS_TO_LOAD = 10;
 
 class Feed extends Component {
     state = {
-        postIds: null
+        postIds: []
     };
 
     componentDidMount() {
@@ -39,28 +39,16 @@ class Feed extends Component {
         return json;
     }
 
-    loadPosts = () =>
-    {
-        let posts = [];
-
-        // Add the posts
-        for (let i = 0; i < NUMBER_OF_POSTS_TO_LOAD; ++i)
-        {
-            // TODO: Get the recent posts via timestamp from express
-            posts.push(<Post postName = {i}/>);
-        }
-
-        return posts;
-    }
-
+    // Translates this.state.postIds into legible React Post objects
     renderPosts = () =>
     {
         let posts = [];
 
         // Add the posts
-        for (let i = 0; i < this.state.postIds.length; ++i)
+        let postIds = this.state.postIds;
+        for (let i = 0; i < postIds.length; ++i)
         {
-            posts.push(<Post postName = {i}/>);
+            posts.push(<Post postId = {postIds[i].postid}/>);
         }
 
         return posts;
@@ -69,11 +57,9 @@ class Feed extends Component {
     render() {
         return (
             // TODO: Make a box that contains the posts
-            <div className="User">
+            <div>
                 <p>Feed Start</p>
-
-                {this.loadPosts()}
-                {this.state.postIds}
+                {this.renderPosts()}
             </div>
         );
     }

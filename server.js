@@ -27,7 +27,7 @@ app.use('/api', router);
 var user = require('./routes/userroutes');
 app.get('/user_data', user.userData)
 app.get('/retrieve_posts', user.retrievePosts)
-
+app.get('/get_post', user.getPost)
 //
 
 
