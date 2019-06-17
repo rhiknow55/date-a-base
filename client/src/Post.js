@@ -1,4 +1,7 @@
 import React, { Component }from 'react';
+import { CommentSection, AddComment, CommentBox } from './Comment.js';
+import './Post.css';
+
 
 class Post extends Component
 {
@@ -26,8 +29,6 @@ class Post extends Component
 
             this.getUserData();
         });
-
-
     }
 
     retrieveFeed = async () => {
@@ -60,12 +61,23 @@ class Post extends Component
         return json;
     }
 
+    // Add comment function
+    addComment = function()
+    {
+        // POST comment
+
+        console.log("Comment added!");
+    }
+
     render() {
         return (
-            <div>
+            <div className="Post-container">
                 <p>Post Id = {this.state.postId}</p>
                 <p>Username = {this.state.user.username}</p>
                 <p>Message = {this.state.message}</p>
+
+                <CommentSection postId={this.state.postId}/>
+
             </div>
         );
     }

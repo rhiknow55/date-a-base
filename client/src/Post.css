@@ -1,0 +1,27 @@
+.Post-container {
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: var(--tusk);
+}
+
+.Post-comment-button {
+    border-radius: 10px;
+    background-color: var(--hitgray);
+    border: blue;
+}
+
+.CommentSection-container {
+    border-radius: 10px;
+    background-color: yellowgreen;
+}
+
+.AddComment-container {
+    border-radius: 10px;
+    background-color: coral;
+}
+
+.Comment-container {
+    border-radius: 10px;
+    background-color: lightblue;
+}

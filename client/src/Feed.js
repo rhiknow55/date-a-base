@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Post from "./Post";
+import './Feed.css'
 
 const NUMBER_OF_POSTS_TO_LOAD = 10;
 
@@ -57,7 +58,7 @@ class Feed extends Component {
     render() {
         return (
             // TODO: Make a box that contains the posts
-            <div>
+            <div className='Feed-container'>
                 <p>Feed Start</p>
                 {this.renderPosts()}
             </div>

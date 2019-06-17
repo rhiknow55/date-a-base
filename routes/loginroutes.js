@@ -1,4 +1,4 @@
-var connection = require('../connection.js');
+var connection = require('./connection.js');
 
 exports.register = function(req,res){
   // console.log("req",req.body);

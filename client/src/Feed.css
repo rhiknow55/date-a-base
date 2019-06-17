@@ -1,0 +1,6 @@
+.Feed-container {
+    border-radius: 25px;
+    padding: 10px;
+    color: black;
+    background-color: var(--hitgray);
+}

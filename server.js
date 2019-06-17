@@ -26,10 +26,16 @@ app.use('/api', router);
 // userroutes.js
 var user = require('./routes/userroutes');
 app.get('/user_data', user.userData)
-app.get('/retrieve_posts', user.retrievePosts)
-app.get('/get_post', user.getPost)
-//
 
+// postroutes.js
+var post = require('./routes/postroutes');
+app.get('/retrieve_posts', post.retrievePosts)
+app.get('/get_post', post.getPost)
+
+// commentroutes.js
+var comment = require('./routes/commentroutes');
+app.get('/retrieve_comments', comment.retrieveComments);
+//app.get('/add_comment', comment.addComment);
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
