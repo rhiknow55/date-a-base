@@ -19,9 +19,9 @@ router.get('/', function(req, res) {
 
 // loginroutes.js
 var login = require('./routes/loginroutes');
-router.post('/register', login.register);
-router.post('/login', login.login);
-app.use('/api', router);
+app.post('/register', login.register);
+app.post('/login', login.login);
+// app.use('/api', router);
 
 // userroutes.js
 var user = require('./routes/userroutes');
