@@ -13,6 +13,15 @@ export class CommentSection extends Component {
     }
 
     componentDidMount() {
+        this.loadComments();
+        this.props.onRef(this);
+    }
+
+    componentWillUnmount() {
+        this.props.onRef(undefined);
+    }
+
+    loadComments() {
         // Load the comments for this post
         this.retrieveFeed()
             .then(res =>
@@ -54,54 +63,30 @@ export class CommentSection extends Component {
             <div className="CommentSection-container">
                 CommentSection
                 {this.renderComments()}
+                <br></br>
             </div>
         );
     }
 }
 
+
+
 export class AddComment extends Component {
     constructor(props)
     {
         super(props);
-        this.state = {message: "Insert comment here"};
+        this.state = {message: ""};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    addComment = function(commentId){
-        this.postComment(commentId)
-            .then(
-                console.log("Comment added")
-            );
-    }
-
-    postComment = async (commentId) =>
-    {
-        let url = '/add_comment';
-        const response = await fetch(url,
-         {
-             method: 'POST',
-             headers: {
-                 'Accept': 'application/json',
-                 'Content-Type': 'application/json'
-             },
-             body: JSON.stringify({commentId: commentId, message: this.state.message, postId: this.props.postId, userId: this.props.myUserId})
-         });
-
-        const json = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(json.message)
-        }
-
-        return json;
-    }
-
+    // Handling change of textbox
     handleChange(event) {
         this.setState({message: event.target.value});
     }
 
+    // Handling the click of the submit button. Will get the number of comments made by user on that post first
     handleSubmit(event) {
         // Post to database
         this.getNumberOfComments();
@@ -110,20 +95,12 @@ export class AddComment extends Component {
         event.preventDefault()
     }
 
-    actuallySubmit(commentAmount)
-    {
-        let commentId = this.props.myUserId.toString() + this.props.postId.toString() + commentAmount.toString();
-        console.log(commentId);
-        this.addComment(commentId);
-    }
-
     // Get number of comments made by user so far
     getNumberOfComments = () =>
     {
         this.getCommentsOnPost()
             .then(res => {
-                console.log("amount: " + res.amount);
-                this.actuallySubmit(res.amount)});
+            this.actuallySubmit(res.amount)});
     }
 
     getCommentsOnPost = async () => {
@@ -136,14 +113,53 @@ export class AddComment extends Component {
         return json;
     }
 
+    // This gets called once done getting number of comments
+    // It calls the actual method that adds the comment
+    actuallySubmit(commentAmount)
+    {
+        let commentId = this.props.myUserId.toString() + this.props.postId.toString() + commentAmount.toString();
+        this.addComment(commentId);
+    }
+
+    // Actually sending an API call to post comment to database
+    addComment = function(commentId){
+        this.postComment(commentId)
+            .then(
+                this.props.refresh(),
+                this.setState({message: ""})
+            );
+    }
+
+    postComment = async (commentId) =>
+    {
+        let url = '/add_comment';
+        const response = await fetch(url,
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({commentId: commentId, message: this.state.message, postId: this.props.postId, userId: this.props.myUserId})
+        });
+
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
+        }
+
+        return json;
+    }
+
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Comment:
-                    <input type="text" value={this.state.message} onChange={this.handleChange} />
+                    <input type="text" value={this.state.message} placeholder="Your comment here..." onChange={this.handleChange} />
                 </label>
-                <input type="submit" value="Submit"/>
+                <input className="Post-comment-button" type="submit" value="Submit"/>
             </form>
         );
     }
@@ -214,10 +230,9 @@ export class CommentBox extends Component {
     render() {
         return (
             <div className='Comment-container'>
-                <p>{this.timeSince(this.getDate(this.props.comment.timeStamp))} ago</p>
-                <p></p>
-                <button>{this.state.user.username}</button>
-                {this.props.comment.message}
+                <button className="Comment-user-button">{this.state.user.username}</button>
+                <div className="Comment-message">{this.props.comment.message}</div>
+                <p className="Comment-timestamp">{this.timeSince(this.getDate(this.props.comment.timeStamp))} ago</p>
             </div>
         );
     }

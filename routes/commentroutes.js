@@ -31,8 +31,6 @@ exports.addComment = function(req, res)
         "userId": parseInt(req.body.userId)
     }
 
-    console.log(comment);
-
     connection.query('INSERT INTO CommentsFromPostByUser (commentId, message, postId, userId) VALUES (?, ?, ?, ?)',
         [comment.commentId, comment.message, comment.postId, comment.userId],
 

@@ -69,6 +69,12 @@ class Post extends Component
         console.log("Comment added!");
     }
 
+    // Refresh the comment section. Callback for when you add a comment
+    refreshCommentSection = () =>
+    {
+        this.commentSection.loadComments();
+    }
+
     render() {
         return (
             <div className="Post-container">
@@ -76,8 +82,8 @@ class Post extends Component
                 <p>Username = {this.state.user.username}</p>
                 <p>Message = {this.state.message}</p>
 
-                <CommentSection postId={this.state.postId}/>
-                <AddComment postId={this.state.postId} myUserId={this.props.myUserId}/>
+                <CommentSection onRef={ref => (this.commentSection = ref)} postId={this.state.postId}/>
+                <AddComment postId={this.state.postId} myUserId={this.props.myUserId} refresh={this.refreshCommentSection}/>
             </div>
         );
     }
