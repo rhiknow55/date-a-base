@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import Feed from './Feed.js';
+import Profile from './Profile.js';
+import {CommentSection} from "./Comment";
 
 class User extends Component {
     state = {
+        loginName: null,
         username: null,
         horoscope: null,
         log: 0,
-        baseId: 0
+        baseId: 0,
+        created: null
     };
+
 
     componentDidMount() {
         // Load the user data
@@ -40,26 +45,27 @@ class User extends Component {
                     log={this.state.log}
                     baseId={this.state.baseId}
                     />
+                <span>&nbsp;</span>
                 <Feed myUserId={this.props.myUserId} />
             </div>
         );
     }
 }
 
-class Profile extends Component
-{
-    render() {
-        return (
-            <div>
-                <p>This is Profile</p>
-                Username = {this.props.username}
-                Horoscope = {this.props.horoscope}
-                LOG = {this.props.log}
-                BaseId = {this.props.baseId}
-            </div>
-        );
-    }
-}
+// class Profile extends Component
+// {
+//     render() {
+//         return (
+//             <div>
+//                 <p>This is Profile</p>
+//                 Username = {this.props.username}
+//                 Horoscope = {this.props.horoscope}
+//                 LOG = {this.props.log}
+//                 BaseId = {this.props.baseId}
+//             </div>
+//         );
+//     }
+// }
 
 
 export default User;

@@ -27,7 +27,8 @@ class Login extends Component {
     event.preventDefault();
 
     try{
-      this.userLogin()
+      this.userLogin();
+      // this.props.history.push("/user");
     } catch (e) {
      alert(e.message);
    }
@@ -41,6 +42,17 @@ class Login extends Component {
     });
   }
 
+  handleAlternate(event) {
+    event.preventDefault();
+    console.log('on click user registration');
+    // this.props.history.push('/register');
+   //  try{
+   //    this.userRegistration()
+   //  } catch (e) {
+   //   alert(e.message);
+   // }
+
+  }
 
   userLogin = async () => {
     var userLoginName = this.state.loginName;
@@ -58,6 +70,12 @@ class Login extends Component {
       })
     });
 
+    // let Router = window.ReactRouter;
+    // let RouteHandler = Router.RouteHandler;
+    // let Route = Router.Route;
+    // let DefaultRoute = Router.DefaultRoute;
+    // let hashHistory = Router.hashHistory;
+
     if (response.status !== 200) {
         //throw Error(body.message)
       if (response.status == 404) {
@@ -66,7 +84,13 @@ class Login extends Component {
          alert("LoginName and password do not match");
       }
     } else {
-      alert("Successfully logged in");
+      console.log("Successfully logged in");
+      this.props.userHasAuthenticated(true);
+      this.props.history.push("/");
+      // User.setState({
+      //   loginName: userLoginName
+      // });
+      // hashHistory.push('/user')
     }
 
     //return body;
@@ -101,6 +125,13 @@ class Login extends Component {
           >
             Login
           </Button>
+          {/*<Button*/}
+          {/*    block*/}
+          {/*    bsSize="large"*/}
+          {/*    onClick={this.handleAlternate.bind(this)}*/}
+          {/*>*/}
+          {/*  Register*/}
+          {/*</Button>*/}
         </form>
       </div>
     );
