@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 //import { Link } from 'react-router-dom';
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl} from "react-bootstrap";
 import "./Login.css";
 // import logo from './logo.svg';
 // import './App.css';
