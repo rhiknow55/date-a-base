@@ -3,7 +3,6 @@ import {
   HelpBlock,
   FormGroup,
   FormControl,
-  ControlLabel,
   Button,
 } from "react-bootstrap";
 // import LoaderButton from "../components/LoaderButton";
@@ -83,7 +82,7 @@ class Register extends Component {
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
+          <label>Password</label>
           <FormControl
             value={this.state.password}
             onChange={this.handleChange}
@@ -91,7 +90,7 @@ class Register extends Component {
           />
         </FormGroup>
         <FormGroup controlId="confirmPassword" bsSize="large">
-          <ControlLabel>Confirm Password</ControlLabel>
+          <label>Confirm Password</label>
           <FormControl
             value={this.state.confirmPassword}
             onChange={this.handleChange}
