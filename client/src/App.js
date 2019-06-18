@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import User from './User.js';
+import Login from './Login.js';
 import './App.css'
 import './Color.css'
 
@@ -33,6 +34,7 @@ class App extends Component {
                 </header>
 
                 <p className="App-intro">{this.state.data}</p>
+                <Login />
                 <User myUserId={1}/>
             </div>
     );
