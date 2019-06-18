@@ -13,7 +13,7 @@ app.use(function(req, res, next) {
 
 var router = express.Router();
 // test route
-router.get('/', function(req, res) {
+app.get('/', function(req, res) {
     res.json({ message: 'welcome to our upload module apis' });
 });
 
