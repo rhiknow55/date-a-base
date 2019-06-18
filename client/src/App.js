@@ -33,7 +33,7 @@ class App extends Component {
                 </header>
 
                 <p className="App-intro">{this.state.data}</p>
-                <User />
+                <User myUserId={1}/>
             </div>
     );
     }

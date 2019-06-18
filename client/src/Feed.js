@@ -49,7 +49,7 @@ class Feed extends Component {
         let postIds = this.state.postIds;
         for (let i = 0; i < postIds.length; ++i)
         {
-            posts.push(<Post postId = {postIds[i].postid}/>);
+            posts.push(<Post postId = {postIds[i].postid} myUserId={this.props.myUserId}/>);
         }
 
         return posts;

@@ -77,7 +77,7 @@ class Post extends Component
                 <p>Message = {this.state.message}</p>
 
                 <CommentSection postId={this.state.postId}/>
-
+                <AddComment postId={this.state.postId} myUserId={this.props.myUserId}/>
             </div>
         );
     }

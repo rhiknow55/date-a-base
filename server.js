@@ -35,7 +35,8 @@ app.get('/get_post', post.getPost)
 // commentroutes.js
 var comment = require('./routes/commentroutes');
 app.get('/retrieve_comments', comment.retrieveComments);
-//app.get('/add_comment', comment.addComment);
+app.post('/add_comment', comment.addComment);
+app.get('/comments_made_on_post', comment.commentsMadeOnPost);
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -37,7 +37,7 @@ class User extends Component {
                     horoscope={this.state.horoscope}
                     log={this.state.log}
                     />
-                <Feed />
+                <Feed myUserId={this.props.myUserId} />
             </div>
         );
     }

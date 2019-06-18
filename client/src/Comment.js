@@ -63,16 +63,88 @@ export class AddComment extends Component {
     constructor(props)
     {
         super(props);
-        this.state = {
-            postId: this.props.postId,
+        this.state = {message: "Insert comment here"};
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    addComment = function(commentId){
+        this.postComment(commentId)
+            .then(
+                console.log("Comment added")
+            );
+    }
+
+    postComment = async (commentId) =>
+    {
+        let url = '/add_comment';
+        const response = await fetch(url,
+         {
+             method: 'POST',
+             headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({commentId: commentId, message: this.state.message, postId: this.props.postId, userId: this.props.myUserId})
+         });
+
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
         }
+
+        return json;
+    }
+
+    handleChange(event) {
+        this.setState({message: event.target.value});
+    }
+
+    handleSubmit(event) {
+        // Post to database
+        this.getNumberOfComments();
+
+        // Prevent page from refreshing
+        event.preventDefault()
+    }
+
+    actuallySubmit(commentAmount)
+    {
+        let commentId = this.props.myUserId.toString() + this.props.postId.toString() + commentAmount.toString();
+        console.log(commentId);
+        this.addComment(commentId);
+    }
+
+    // Get number of comments made by user so far
+    getNumberOfComments = () =>
+    {
+        this.getCommentsOnPost()
+            .then(res => {
+                console.log("amount: " + res.amount);
+                this.actuallySubmit(res.amount)});
+    }
+
+    getCommentsOnPost = async () => {
+        const response = await fetch('/comments_made_on_post?postId=' + this.props.postId + '&userId=' + this.props.myUserId);
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
+        }
+        return json;
     }
 
     render() {
         return (
-            <div className="AddComment-container">
-
-            </div>
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Comment:
+                    <input type="text" value={this.state.message} onChange={this.handleChange} />
+                </label>
+                <input type="submit" value="Submit"/>
+            </form>
         );
     }
 }
