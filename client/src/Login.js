@@ -77,7 +77,7 @@ class Login extends Component {
       <div className="Login">
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="loginName" bsSize="large">
-            <ControlLabel>LoginName</ControlLabel>
+            <label>LoginName</label>
             <FormControl
               autoFocus
               type="loginName"
@@ -86,7 +86,7 @@ class Login extends Component {
             />
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
+            <label>Password</label>
             <FormControl
               value={this.state.password}
               onChange={this.handleChange}
