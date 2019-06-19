@@ -41,37 +41,19 @@ exports.login = function(req,res){
   if (error) {
     // console.log("error ocurred",error);
     res.sendStatus(400).send('error occurred');
-    // res.send({
-    //   "code":400,
-    //   "failed":"error ocurred"
-    // })
   }else{
     // console.log('The solution is: ', results);
     console.log(results);
     if(results.length >0){
       if(results[0].password == password){
         res.status(200).json({userId : results[0].userId, username : results[0].username});
-        // res.send({
-        //   "code":200,
-        //   "success":"login sucessfull"
-        //     });
       }
       else{
-        //res.sendStatus(400);
         res.status(400).send('loginName and password does not match');
-        // res.send({
-        //   "code":400,
-        //   "success":"loginName and password does not match"
-        //     });
       }
     }
     else{
       res.status(404).send('loginName does not exits');
-      // res.send({
-      //   "code":404,
-      //   // "code":404,
-      //   "success":"loginName does not exits"
-      //     });
     }
   }
   });

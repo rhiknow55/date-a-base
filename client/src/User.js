@@ -47,26 +47,11 @@ class User extends Component {
                     baseId={this.state.baseId}
                     />
                 <span>&nbsp;</span>
-                <Feed myUserId={this.props.myUserId} />
+                {/*<Feed myUserId={this.props.myUserId} />*/}
+                <Feed myUserId={1} />
             </div>
         );
     }
 }
-
-// class Profile extends Component
-// {
-//     render() {
-//         return (
-//             <div>
-//                 <p>This is Profile</p>
-//                 Username = {this.props.username}
-//                 Horoscope = {this.props.horoscope}
-//                 LOG = {this.props.log}
-//                 BaseId = {this.props.baseId}
-//             </div>
-//         );
-//     }
-// }
-
 
 export default User;

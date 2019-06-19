@@ -84,7 +84,7 @@ class App extends Component {
         <Navbar fluid collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">Date-a-base</Link>
+              <Link to="/" userId={this.state.userId}>Date-a-base</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
