@@ -24,7 +24,7 @@ class App extends Component {
     }
 
     userHasAuthenticated = (authenticated, userId, username) => {
-      this.setState({ isAuthenticated: authenticated, userId = userId, username = username });
+      this.setState({ isAuthenticated: authenticated, userId : userId, username : username });
     }
 
     componentDidMount() {
