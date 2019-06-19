@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import User from '../User.js';
+import Login from '../Login.js';
 //import { Link } from 'react-router-dom';
 import { Button, FormGroup, FormControl} from "react-bootstrap";
 // import "./Login.css";
@@ -11,15 +12,22 @@ import './Home.css';
 class Home extends Component {
 
   render() {
-    return (
-      <div className="Home">
-        <div className="lander">
-          <h1>test - Home Container</h1>
-          <p>----</p>
+    if (this.props.isAuthenticated){
+      console.log(this.props);
+      return (
+        <div className="Home">
+          <div className="lander">
+            <h1>test - Home Container</h1>
+            <p>----</p>
+          </div>
+          <User myUserId={this.props.myUserId}/>
         </div>
-        <User myUserId={1}/>
-      </div>
-    );
+      );
+    } else {
+      console.log("LOOK HERE")
+      console.log(this.props);
+      return <Login history={this.props.history} userHasAuthenticated = {this.props.userHasAuthenticated} />
+    }
   }
 }
 

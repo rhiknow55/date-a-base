@@ -17,12 +17,19 @@ class App extends Component {
       super(props);
 
       this.state = {
-        isAuthenticated: false
+        isAuthenticated: false,
+        userId: -1,
+        username: ''
       };
     }
 
-    userHasAuthenticated = authenticated => {
-      this.setState({ isAuthenticated: authenticated });
+    userHasAuthenticated = (authenticated, userId, username) => {
+      console.log(userId);
+      console.log(username);
+      console.log("----------")
+      this.setState({ isAuthenticated: authenticated, userId : userId, username : username });
+      console.log(this.state);
+      console.log("---end of state---")
     }
 
     componentDidMount() {
@@ -68,14 +75,16 @@ class App extends Component {
     render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      myUserId: this.state.userId,
+      username: this.state.username
     };
     return (
       <div className="App container">
         <Navbar fluid collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">Date-a-base</Link>
+              <Link to="/" userId={this.state.userId}>Date-a-base</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
