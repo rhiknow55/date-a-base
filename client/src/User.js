@@ -45,6 +45,7 @@ class User extends Component {
                     horoscope={this.state.horoscope}
                     log={this.state.log}
                     baseId={this.state.baseId}
+                    myUserId={this.props.myUserId}
                     />
                 <span>&nbsp;</span>
                 {/*<Feed myUserId={this.props.myUserId} />*/}
