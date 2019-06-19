@@ -3,6 +3,8 @@ import User from './User.js';
 import Login from './Login.js';
 import './App.css'
 import './Color.css'
+import Chat from './Chat.js'
+
 
 class App extends Component {
     state = {
@@ -32,6 +34,8 @@ class App extends Component {
                 <header className="App-header">
                     <h1 className="App-title">Date-a-base</h1>
                 </header>
+
+                <Chat />
 
                 <p className="App-intro">{this.state.data}</p>
                 <Login />
