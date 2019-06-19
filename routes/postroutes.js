@@ -13,7 +13,7 @@ exports.retrievePosts = function(req, res){
             totalPostCount = rows[0].totalCount;
         })
 
-    connection.query('SELECT postid FROM SocialPostsCreatedByUser ORDER BY timeStamp DESC LIMIT ?', parseInt(numberOfPosts),
+    connection.query('SELECT postId FROM SocialPostsCreatedByUser ORDER BY timeStamp DESC LIMIT ?', parseInt(numberOfPosts),
         function (err, rows, fields) {
             if (err) throw err;
 

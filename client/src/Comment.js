@@ -51,7 +51,7 @@ export class CommentSection extends Component {
         let commentIds = this.state.commentIds;
         for (let i = 0; i < commentIds.length; ++i)
         {
-            comments.push(<CommentBox comment = {commentIds[i]}/>);
+            comments.push(<CommentBox key={commentIds[i].commentId} comment = {commentIds[i]}/>);
         }
 
         return comments;

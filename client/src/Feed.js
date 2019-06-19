@@ -26,9 +26,9 @@ class Feed extends Component {
         this.retrieveFeedAsync()
             .then(res => {this.setState( {
                 postIds: res.postIds,
-                filteredByFriends: true
+                filteredByFriends: false
         })}
-    );
+    )
     }
 
     retrieveFeedAsync = async () => {
@@ -49,10 +49,11 @@ class Feed extends Component {
         let posts = [];
 
         // Add the posts
+        console.log("inside renderPosts: " + this.state.postIds)
         let postIds = this.state.postIds;
         for (let i = 0; i < postIds.length; ++i)
         {
-            posts.push(<Post key={postIds[i].postid} postId = {postIds[i].postid} myUserId={this.props.myUserId}/>);
+            posts.push(<Post key={postIds[i].postid} postId = {postIds[i].postId} myUserId={this.props.myUserId}/>);
         }
 
         return posts;
@@ -65,12 +66,16 @@ class Feed extends Component {
     }
 
     filter(event){
-        if (this.state.filteredByFriend)
+        // If currently filtered by friend, toggle to global feed
+        if (this.state.filteredByFriends)
         {
+            console.log("global filter")
             this.retrieveFeed();
         }
         else
         {
+            // else if currently not friend feed, toggle to friend feed
+            console.log("friend filter")
             this.retrieveFriendsFeed();
         }
 
@@ -84,8 +89,7 @@ class Feed extends Component {
             .then(res => {this.setState( {
                 postIds: res.postIds,
                 filteredByFriends: true
-            });
-            console.log(this.state.postIds)
+            })
             }
     );
     }
@@ -109,7 +113,7 @@ class Feed extends Component {
                 <p>Feed Start</p>
                 <AddPost myUserId={this.props.myUserId} refresh={this.refreshFeed} />
 
-                <button type="button" onClick={this.filter} className="btn">{this.state.filteredByFriend ? 'Global' : 'Friends'}</button>
+                <button type="button" onClick={this.filter} className="btn">{this.state.filteredByFriends ? 'Global' : 'Friends'}</button>
                 {this.renderPosts()}
             </div>
         );

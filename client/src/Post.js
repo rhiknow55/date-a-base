@@ -20,9 +20,20 @@ class Post extends Component
         this.handleLike = this.handleLike.bind(this);
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({postId: nextProps.postId}, () => {
+            this.getPost()
+        })
+    }
+
     componentDidMount() {
+        this.getPost();
+    }
+
+    getPost()
+    {
         // Load the feed contents
-        this.getPost()
+        this.getPostAsync()
             .then(res => {
             this.setState({
                 message: res.message,
@@ -30,12 +41,13 @@ class Post extends Component
                 userId: res.userId
             });
 
-            this.getUserData();
-            this.getLikedPost();
-        });
+        this.getUserData();
+        this.getLikedPost();
+        this.refreshCommentSection();
+    });
     }
 
-    getPost = async () => {
+    getPostAsync = async () => {
         let url = '/get_post?postId=' + this.state.postId;
         const response = await fetch(url)
 
@@ -44,6 +56,7 @@ class Post extends Component
         if (response.status !== 200) {
             throw Error(json.message)
         }
+
         return json;
     }
 
