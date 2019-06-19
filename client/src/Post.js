@@ -13,8 +13,11 @@ class Post extends Component
             message: null,
             image: null,
             userId: null,
-            user: {username: null, horoscope: null, log: null}
+            user: {username: null, horoscope: null, log: null},
+            liked: false
         }
+
+        this.handleLike = this.handleLike.bind(this);
     }
 
     componentDidMount() {
@@ -28,6 +31,7 @@ class Post extends Component
             });
 
             this.getUserData();
+            this.getLikedPost();
         });
     }
 
@@ -52,12 +56,103 @@ class Post extends Component
     }
 
     retrieveUserData = async () => {
-        const response = await fetch('/user_data?userId=' + this.state.userId);
+        const response = await fetch('/user_data?userId=' + this.props.myUserId);
         const json = await response.json();
 
         if (response.status !== 200) {
             throw Error(json.message)
         }
+        return json;
+    }
+
+    getLikedPost = function()
+    {
+        this.retrieveLikedPost()
+            .then(res => this.setState( {
+            liked: res.liked
+        }));
+    }
+
+    retrieveLikedPost = async () => {
+        const response = await fetch('/get_if_like?userId=' + this.props.myUserId + '&postId=' + this.state.postId);
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
+        }
+        return json;
+    }
+
+    handleLike(event) {
+        if (this.state.liked)
+        {
+            this.unlikePost();
+        }
+        else
+        {
+            this.likePost();
+        }
+
+        event.preventDefault();
+    }
+
+    // Actually sending an API call to like post to database
+    likePost = function(){
+        this.likePostAsync()
+            .then(
+                this.setState({liked: true})
+            );
+    }
+
+    likePostAsync = async (commentId) =>
+    {
+        let url = '/like_post';
+        const response = await fetch(url,
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userId: this.props.myUserId, postId: this.state.postId})
+        });
+
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
+        }
+
+        return json;
+    }
+
+    // Actually sending an API call to unlike post to database
+    unlikePost = function(){
+        this.unlikePostAsync()
+            .then(
+                this.setState({liked: false})
+            );
+    }
+
+    unlikePostAsync = async (commentId) =>
+    {
+        let url = '/unlike_post';
+        const response = await fetch(url,
+        {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userId: this.props.myUserId, postId: this.state.postId})
+        });
+
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
+        }
+
         return json;
     }
 
@@ -73,7 +168,7 @@ class Post extends Component
                 <p>Post = {this.state.postId}</p>
                 <p>Username = {this.state.user.username}</p>
                 <p>Message = {this.state.message}</p>
-
+                <button type="button" onClick={this.handleLike} className="Comment-user-button">{this.state.liked ? 'Unlike' : 'Like'}</button>
                 <CommentSection onRef={ref => (this.commentSection = ref)} postId={this.state.postId}/>
                 <AddComment postId={this.state.postId} myUserId={this.props.myUserId} refresh={this.refreshCommentSection}/>
             </div>

@@ -50,8 +50,6 @@ exports.addPost = function(req, res){
         "userId": parseInt(req.body.userId)
     }
 
-    console.log(post);
-
     connection.query('INSERT INTO SocialPostsCreatedByUser (postId, message, userId) VALUES (?, ?, ?)',
         [post.postId, post.message, post.userId],
 
@@ -81,5 +79,56 @@ exports.postsMadeByUser = function(req, res)
                 res.send({
                     "amount": 0
                 })
+        })
+}
+
+// '/like_post'
+exports.likePost = function(req, res)
+{
+    connection.query('INSERT INTO UserLikesPost (userId, postId) VALUES (?, ?)',
+        [req.body.userId, req.body.postId],
+
+        function(err, rows, fields) {
+            if (err) throw err;
+
+            res.send({
+                "code":200,
+                "success":"like added sucessfully"
+            });
+        })
+}
+
+// '/unlike_post'
+exports.unlikePost = function(req, res)
+{
+    connection.query('DELETE FROM UserLikesPost WHERE userId = ? AND postId = ?',
+        [req.body.userId, req.body.postId],
+
+        function(err, rows, fields) {
+            if (err) throw err;
+
+            res.send({
+                "code":200,
+                "success":"like deleted sucessfully"
+            });
+        })
+}
+
+// '/get_if_like'
+exports.getIfLike = function(req, res)
+{
+    connection.query('SELECT * FROM UserLikesPost WHERE userId = ? AND postId = ?', [req.query.userId, req.query.postId],
+
+        function(err, rows, fields) {
+            if (err) throw err;
+
+            if (rows.length > 0)
+                res.send({
+                    "liked": true
+                });
+            else
+                res.send({
+                    "liked": false
+                });
         })
 }

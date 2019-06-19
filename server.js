@@ -33,6 +33,9 @@ app.get('/retrieve_posts', post.retrievePosts);
 app.get('/get_post', post.getPost);
 app.post('/add_post', post.addPost);
 app.get('/posts_made_by_user', post.postsMadeByUser);
+app.post('/like_post', post.likePost);
+app.delete('/unlike_post', post.unlikePost);
+app.get('/get_if_like', post.getIfLike);
 
 // commentroutes.js
 var comment = require('./routes/commentroutes');
