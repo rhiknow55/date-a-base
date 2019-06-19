@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import "./Profile.css";
 import ElectricBass from './images/electricBass.png';
+import ChemicalBase from './images/chemicalBase.png';
+import Baseball from './images/baseball.png';
 import Trophy from "./Trophy.js";
 import Post from "./Post";
+import {NavItem} from "react-bootstrap";
+import {LinkContainer} from "react-router-bootstrap";
 
 
 class Profile extends Component
 {
     state = {
         baseLogo: null,
-        trophyIds: []
+        trophyIds: [],
+        hasAllTrophies: false
     };
-
-    componentWillReceiveProps(){
-      if(this.props.baseId == 2){
-        this.setState({baseLogo: ElectricBass });
-        // this.classMethod();
-      }
-    }
 
     componentDidMount() {
         console.log("call componentDidMount")
@@ -52,7 +50,7 @@ class Profile extends Component
     {
         let trophies = [];
 
-        // Add the posts
+        // Add the trophies
         let trophyIds = this.state.trophyIds;
         for (let i = 0; i < trophyIds.length; ++i)
         {
@@ -62,21 +60,39 @@ class Profile extends Component
         return trophies;
     }
 
+    renderBaseLogo(baseId)
+    {
+        switch(baseId) {
+            case 1:
+              return <img src={ElectricBass} />;
+            case 2:
+              return <img src={ChemicalBase} />;
+            case 3:
+              return <img src={Baseball} />;
+            case 4:
+              return <p>Log base</p>;
+            case 5:
+              return <p>Bass Fish</p>;;
+            default:
+              return null;
+        }
+    }
+
     render() {
+        console.log(this.state.hasAllTrophies);
         return (
             <div className='Profile-container'>
                 <h1>User Profile Here</h1>
-                {/*<img src={ElectricBass} alt="ElectricBass" />;*/}
-                {/*todo: using baseLogo can change logo based on baseId, but cannot be rendered after user login*/}
-                {/*<img src={this.state.baseLogo} />*/}
-                <img src={ElectricBass} />
-                {/*<img src='./images/electricBass.png' />*/}
+                {this.renderBaseLogo(this.props.baseId)}
+                <p>BaseId: {this.props.baseId}</p>
                 <p>Username: {this.props.username}</p>
                 <p>Horoscope: {this.props.horoscope}</p>
                 {/*<span>&nbsp;</span>*/}
                 <p>Points: {this.props.log}</p>
-                {/*<p>BaseId: {this.props.baseId}</p>*/}
-                {/*<Trophy trophyIds={this.state.trophyIds}/>*/}
+                {this.state.hasAllTrophies
+                  ? <p>Has all trophies</p>
+                  : <p>more points needed to receive the next trophy</p>
+                }
                 {this.renderTrofiess()}
             </div>
         );
