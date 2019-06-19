@@ -17,6 +17,7 @@ class Home extends Component {
           <h1>test - Home Container</h1>
           <p>----</p>
         </div>
+        {/*<User myUserId={this.props.userId}/>*/}
         <User myUserId={1}/>
       </div>
     );

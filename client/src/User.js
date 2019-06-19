@@ -5,6 +5,7 @@ import {CommentSection} from "./Comment";
 
 class User extends Component {
     state = {
+
         loginName: null,
         username: null,
         horoscope: null,
@@ -26,8 +27,8 @@ class User extends Component {
     }
 
     retrieveUserData = async () => {
-        var userId = 2
-        const response = await fetch('/user_data?userId=' + userId);
+        // const response = await fetch('/user_data?userId=' + this.props.userId);
+        const response = await fetch('/user_data?userId=' + 2);
         const json = await response.json();
 
         if (response.status !== 200) {
@@ -46,26 +47,11 @@ class User extends Component {
                     baseId={this.state.baseId}
                     />
                 <span>&nbsp;</span>
-                <Feed myUserId={this.props.myUserId} />
+                {/*<Feed myUserId={this.props.myUserId} />*/}
+                <Feed myUserId={1} />
             </div>
         );
     }
 }
-
-// class Profile extends Component
-// {
-//     render() {
-//         return (
-//             <div>
-//                 <p>This is Profile</p>
-//                 Username = {this.props.username}
-//                 Horoscope = {this.props.horoscope}
-//                 LOG = {this.props.log}
-//                 BaseId = {this.props.baseId}
-//             </div>
-//         );
-//     }
-// }
-
 
 export default User;
