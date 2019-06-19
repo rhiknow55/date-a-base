@@ -47,6 +47,7 @@ exports.login = function(req,res){
     // })
   }else{
     // console.log('The solution is: ', results);
+    console.log(results);
     if(results.length >0){
       if(results[0].password == password){
         res.status(200).json({userId : results[0].userId, username : results[0].username});

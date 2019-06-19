@@ -5,6 +5,7 @@ import {CommentSection} from "./Comment";
 
 class User extends Component {
     state = {
+        userId: -1,
         loginName: null,
         username: null,
         horoscope: null,
@@ -26,8 +27,8 @@ class User extends Component {
     }
 
     retrieveUserData = async () => {
-        var userId = 2
-        const response = await fetch('/user_data?userId=' + userId);
+        
+        const response = await fetch('/user_data?userId=' + this.props.myUserId);
         const json = await response.json();
 
         if (response.status !== 200) {

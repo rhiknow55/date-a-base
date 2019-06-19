@@ -24,7 +24,12 @@ class App extends Component {
     }
 
     userHasAuthenticated = (authenticated, userId, username) => {
+      console.log(userId);
+      console.log(username);
+      console.log("----------")
       this.setState({ isAuthenticated: authenticated, userId : userId, username : username });
+      console.log(this.state);
+      console.log("---end of state---")
     }
 
     componentDidMount() {
@@ -70,7 +75,9 @@ class App extends Component {
     render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      myUserId: this.state.userId,
+      username: this.state.username
     };
     return (
       <div className="App container">
