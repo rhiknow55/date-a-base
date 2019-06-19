@@ -12,7 +12,6 @@ import {LinkContainer} from "react-router-bootstrap";
 class Profile extends Component
 {
     state = {
-        baseLogo: null,
         trophyIds: [],
         hasAllTrophies: false
     };
@@ -27,13 +26,32 @@ class Profile extends Component
                 this.setState( {
 
                 trophyIds: res.trophyIds
+                });
             });
+        this.hasAllTrophies()
+            .then(res => {
+                console.log('get all user ids that has all trophies');
+                console.log(res.userIds);
+                console.log(typeof res.userIds);
+                console.log(this.props.myUserId);
+                console.log(res.userIds[1].userId);
+                let allTrophiesUserIds = res.userIds;
+                for (let i = 0; i < allTrophiesUserIds.length; i++)
+                {
+                    if (this.props.myUserId == allTrophiesUserIds[i].userId){
+                        console.log('you have all the trophies!')
+                        this.setState( {
+                            hasAllTrophies: true
+                        });
+                    }
+                }
+                console.log(this.state.hasAllTrophies);
             });
     }
 
     retrieveTrophy = async () => {
-        console.log('get api is called');
-        console.log("user id: " + this.props.myUserId);
+        // console.log('get api is called');
+        // console.log("user id: " + this.props.myUserId);
         let url = '/get_trophies?userId=' + this.props.myUserId;
         const response = await fetch(url)
 
@@ -56,7 +74,6 @@ class Profile extends Component
         {
             trophies.push(<Trophy trophyId = {trophyIds[i].trophyId} myUserId={this.props.myUserId}/>);
         }
-
         return trophies;
     }
 
@@ -77,9 +94,34 @@ class Profile extends Component
               return null;
         }
     }
+    
+    hasAllTrophies = async () => {
+        console.log('hasAllTrophies is called');
+        console.log("user id: " + this.props.myUserId);
+        let url = '/has_all_trophies';
+        const response = await fetch(url)
+
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
+        }
+        console.log(json);
+        return json;
+    }
+
+    renderHasAllTrofies = () =>
+    {
+        let hasAllTrophies = this.state.hasAllTrophies;
+        console.log(hasAllTrophies);
+        if (hasAllTrophies) {
+            return <p>you have all the trophies!</p>;
+        }
+
+    }
+
 
     render() {
-        console.log(this.state.hasAllTrophies);
         return (
             <div className='Profile-container'>
                 <h1>User Profile Here</h1>
@@ -89,10 +131,7 @@ class Profile extends Component
                 <p>Horoscope: {this.props.horoscope}</p>
                 {/*<span>&nbsp;</span>*/}
                 <p>Points: {this.props.log}</p>
-                {this.state.hasAllTrophies
-                  ? <p>Has all trophies</p>
-                  : <p>more points needed to receive the next trophy</p>
-                }
+                {this.renderHasAllTrofies()}
                 {this.renderTrofiess()}
             </div>
         );
