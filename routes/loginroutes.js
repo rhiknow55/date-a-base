@@ -49,7 +49,7 @@ exports.login = function(req,res){
     // console.log('The solution is: ', results);
     if(results.length >0){
       if(results[0].password == password){
-        res.status(200).send('login sucessfull!');
+        res.status(200).json({userId = results[0].userId, username = results[0].username});
         // res.send({
         //   "code":200,
         //   "success":"login sucessfull"
