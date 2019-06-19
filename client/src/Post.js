@@ -19,7 +19,7 @@ class Post extends Component
 
     componentDidMount() {
         // Load the feed contents
-        this.retrieveFeed()
+        this.getPost()
             .then(res => {
             this.setState({
                 message: res.message,
@@ -31,7 +31,7 @@ class Post extends Component
         });
     }
 
-    retrieveFeed = async () => {
+    getPost = async () => {
         let url = '/get_post?postId=' + this.state.postId;
         const response = await fetch(url)
 
@@ -61,14 +61,6 @@ class Post extends Component
         return json;
     }
 
-    // Add comment function
-    addComment = function()
-    {
-        // POST comment
-
-        console.log("Comment added!");
-    }
-
     // Refresh the comment section. Callback for when you add a comment
     refreshCommentSection = () =>
     {
@@ -78,7 +70,7 @@ class Post extends Component
     render() {
         return (
             <div className="Post-container">
-                <p>Post Id = {this.state.postId}</p>
+                <p>Post = {this.state.postId}</p>
                 <p>Username = {this.state.user.username}</p>
                 <p>Message = {this.state.message}</p>
 
@@ -88,5 +80,104 @@ class Post extends Component
         );
     }
 }
+
+export class AddPost extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.state = {message: ""};
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    // Handling change of textbox
+    handleChange(event) {
+        this.setState({message: event.target.value});
+    }
+
+    // Handling the click of the submit button. Will get the number of posts made by user
+    handleSubmit(event) {
+        // Post to database
+        this.getNumberOfPosts();
+
+        // Prevent page from refreshing
+        event.preventDefault()
+    }
+
+    // Get number of posts made by user so far
+    getNumberOfPosts = () =>
+    {
+        this.getPostsMade()
+            .then(res => {
+                this.actuallySubmit(res.amount)
+            });
+    }
+
+    getPostsMade = async () => {
+        const response = await fetch('/posts_made_by_user?userId=' + this.props.myUserId);
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
+        }
+        return json;
+    }
+
+    // This gets called once done getting number of comments
+    // It calls the actual method that adds the comment
+    actuallySubmit(postAmount)
+    {
+        let postId = this.props.myUserId.toString() + '0' + postAmount.toString();
+        this.addPost(postId);
+    }
+
+    // Actually sending an API call to post comment to database
+    addPost = function(postId){
+        this.postPost(postId)
+            .then(
+                this.props.refresh(),
+                this.setState({message: ""})
+            );
+    }
+
+    postPost = async (postId) =>
+    {
+        let url = '/add_post';
+        const response = await fetch(url,
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({postId: postId, message: this.state.message, userId: this.props.myUserId})
+        });
+
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
+        }
+
+        return json;
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                    <textarea className="form-control rounded-5" value={this.state.message} onChange={this.handleChange}
+                        id="exampleFormControlTextarea1" placeholder="What's on your mind?" rows="10"></textarea>
+                    <span>&nbsp;</span>
+                    <button type="submit" className="btn btn-primary mb-2">Post</button>
+                    <span>&nbsp;</span>
+                </div>
+            </form>
+        );
+    }
+}
+
 
 export default Post;

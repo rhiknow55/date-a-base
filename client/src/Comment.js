@@ -117,7 +117,7 @@ export class AddComment extends Component {
     // It calls the actual method that adds the comment
     actuallySubmit(commentAmount)
     {
-        let commentId = this.props.myUserId.toString() + this.props.postId.toString() + commentAmount.toString();
+        let commentId = this.props.myUserId.toString() + '0' + this.props.postId.toString() + '0' + commentAmount.toString();
         this.addComment(commentId);
     }
 
@@ -155,11 +155,10 @@ export class AddComment extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <label>
-                    Comment:
-                    <input type="text" value={this.state.message} placeholder="Your comment here..." onChange={this.handleChange} />
-                </label>
-                <input className="Post-comment-button" type="submit" value="Submit"/>
+                <input className="form-control form-control-lg" type="text" placeholder="Add comment here..." value={this.state.message} onChange={this.handleChange}/>
+                <span>&nbsp;</span>
+                <button type="submit" className="btn btn-primary mb-2">Comment</button>
+                <span>&nbsp;</span>
             </form>
         );
     }

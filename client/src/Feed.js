@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Post from "./Post";
+import Post, {AddPost} from "./Post";
 import './Feed.css'
 
 const NUMBER_OF_POSTS_TO_LOAD = 10;
@@ -10,27 +10,22 @@ class Feed extends Component {
     };
 
     componentDidMount() {
+        this.loadFeed();
+    }
+
+    loadFeed()
+    {
         // Load the feed contents
         this.retrieveFeed()
-            .then(res => this.setState( {
-                postIds: res.postIds
-            }));
+            .then(res => {this.setState( {
+            postIds: res.postIds
+        })}
+    );
     }
 
     retrieveFeed = async () => {
         let url = '/retrieve_posts?numberOfPosts=' + NUMBER_OF_POSTS_TO_LOAD;
         const response = await fetch(url)
-
-        // const response = await fetch('/retrieve_posts?', {
-        //     method: 'POST',
-        //     headers: new Headers({
-        //         'Accept': 'application/json, text/plain, */*',
-        //         'Content-Type': 'application/json'
-        //     }),
-        //     body: JSON.stringify({
-        //         numberOfPosts: NUMBER_OF_POSTS_TO_LOAD
-        //     })
-        // })
 
         const json = await response.json();
 
@@ -49,10 +44,16 @@ class Feed extends Component {
         let postIds = this.state.postIds;
         for (let i = 0; i < postIds.length; ++i)
         {
-            posts.push(<Post postId = {postIds[i].postid} myUserId={this.props.myUserId}/>);
+            posts.push(<Post key={postIds[i].postid} postId = {postIds[i].postid} myUserId={this.props.myUserId}/>);
         }
 
         return posts;
+    }
+
+    // Refresh the comment section. Callback for when you add a comment
+    refreshFeed = () =>
+    {
+        this.loadFeed();
     }
 
     render() {
@@ -60,6 +61,7 @@ class Feed extends Component {
             // TODO: Make a box that contains the posts
             <div className='Feed-container'>
                 <p>Feed Start</p>
+                <AddPost myUserId={this.props.myUserId} refresh={this.refreshFeed} />
                 {this.renderPosts()}
             </div>
         );

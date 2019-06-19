@@ -29,8 +29,10 @@ app.get('/user_data', user.userData)
 
 // postroutes.js
 var post = require('./routes/postroutes');
-app.get('/retrieve_posts', post.retrievePosts)
-app.get('/get_post', post.getPost)
+app.get('/retrieve_posts', post.retrievePosts);
+app.get('/get_post', post.getPost);
+app.post('/add_post', post.addPost);
+app.get('/posts_made_by_user', post.postsMadeByUser);
 
 // commentroutes.js
 var comment = require('./routes/commentroutes');

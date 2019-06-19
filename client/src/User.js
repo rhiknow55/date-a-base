@@ -13,7 +13,6 @@ class User extends Component {
         created: null
     };
 
-
     componentDidMount() {
         // Load the user data
         this.retrieveUserData()
@@ -26,8 +25,7 @@ class User extends Component {
     }
 
     retrieveUserData = async () => {
-        var userId = 2
-        const response = await fetch('/user_data?userId=' + userId);
+        const response = await fetch('/user_data?userId=' + this.props.myUserId);
         const json = await response.json();
 
         if (response.status !== 200) {

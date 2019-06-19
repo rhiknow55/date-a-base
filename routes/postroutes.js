@@ -13,7 +13,7 @@ exports.retrievePosts = function(req, res){
             totalPostCount = rows[0].totalCount;
         })
 
-    connection.query('SELECT postid FROM SocialPostsCreatedByUser ORDER BY timeStamp LIMIT ?', parseInt(numberOfPosts),
+    connection.query('SELECT postid FROM SocialPostsCreatedByUser ORDER BY timeStamp DESC LIMIT ?', parseInt(numberOfPosts),
         function (err, rows, fields) {
             if (err) throw err;
 
@@ -42,3 +42,44 @@ exports.getPost = function(req, res){
         })
 };
 
+// '/add_post'
+exports.addPost = function(req, res){
+    var post = {
+        "postId": req.body.postId,
+        "message": req.body.message,
+        "userId": parseInt(req.body.userId)
+    }
+
+    console.log(post);
+
+    connection.query('INSERT INTO SocialPostsCreatedByUser (postId, message, userId) VALUES (?, ?, ?)',
+        [post.postId, post.message, post.userId],
+
+        function(err, rows, fields) {
+            if (err) throw err;
+
+            res.send({
+                "code":200,
+                "success":"post added sucessfully"
+            });
+        })
+}
+
+// '/posts_made_by_user'
+exports.postsMadeByUser = function(req, res)
+{
+    connection.query('SELECT COUNT(*) AS amount FROM SocialPostsCreatedByUser WHERE userId = ?', req.query.userId,
+
+        function (err, rows, fields) {
+            if (err) throw err;
+
+            if (rows.length > 0)
+                res.send({
+                    "amount": rows[0].amount
+                })
+            else
+                res.send({
+                    "amount": 0
+                })
+        })
+}
