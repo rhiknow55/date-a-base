@@ -17,12 +17,14 @@ class App extends Component {
       super(props);
 
       this.state = {
-        isAuthenticated: false
+        isAuthenticated: false,
+        userId: -1,
+        username: ''
       };
     }
 
-    userHasAuthenticated = authenticated => {
-      this.setState({ isAuthenticated: authenticated });
+    userHasAuthenticated = (authenticated, userId, username) => {
+      this.setState({ isAuthenticated: authenticated, userId = userId, username = username });
     }
 
     componentDidMount() {
