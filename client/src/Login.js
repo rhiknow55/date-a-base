@@ -85,7 +85,10 @@ class Login extends Component {
       }
     } else {
       console.log("Successfully logged in");
-      this.props.userHasAuthenticated(true);
+      const response = await response.json();
+      const userId = response.body.userId;
+      const username = response.body.username;
+      this.props.userHasAuthenticated(true, userId, username);
       this.props.history.push("/");
       // User.setState({
       //   loginName: userLoginName
