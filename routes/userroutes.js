@@ -40,4 +40,26 @@ exports.retrieveTrophies = function(req,res){
   });
 };
 
+//'/has_all_trophies'
+exports.usersHasAllTrophies = function(req,res){
+  let usersHasAllTrophies = [];
+
+  connection.query('SELECT userId From userhastrophy WHERE trophyId IN (SELECT trophyId FROM trophy) GROUP BY userId HAVING COUNT(*) = (SELECT COUNT(*) FROM trophy)',
+        function (err, results, fields) {
+            if (err) {
+                res.sendStatus(400).send('error occurred');
+              }else{
+                    for (let i = 0; i < results.length; ++i)
+                    {
+                        usersHasAllTrophies.push(results[i]);
+                    }
+                    res.send({
+                        "userIds": usersHasAllTrophies
+                    })
+              }
+        });
+
+};
+
+
 
