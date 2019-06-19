@@ -5,25 +5,33 @@ import './Feed.css'
 const NUMBER_OF_POSTS_TO_LOAD = 10;
 
 class Feed extends Component {
-    state = {
-        postIds: []
-    };
+    constructor(props){
+        super(props);
 
-    componentDidMount() {
-        this.loadFeed();
+        this.state = {
+            postIds: [],
+            filteredByFriends: false
+        };
+
+        this.filter = this.filter.bind(this);
     }
 
-    loadFeed()
+    componentDidMount() {
+        this.retrieveFeed();
+    }
+
+    retrieveFeed()
     {
         // Load the feed contents
-        this.retrieveFeed()
+        this.retrieveFeedAsync()
             .then(res => {this.setState( {
-            postIds: res.postIds
+                postIds: res.postIds,
+                filteredByFriends: true
         })}
     );
     }
 
-    retrieveFeed = async () => {
+    retrieveFeedAsync = async () => {
         let url = '/retrieve_posts?numberOfPosts=' + NUMBER_OF_POSTS_TO_LOAD;
         const response = await fetch(url)
 
@@ -53,7 +61,45 @@ class Feed extends Component {
     // Refresh the comment section. Callback for when you add a comment
     refreshFeed = () =>
     {
-        this.loadFeed();
+        this.retrieveFeed();
+    }
+
+    filter(event){
+        if (this.state.filteredByFriend)
+        {
+            this.retrieveFeed();
+        }
+        else
+        {
+            this.retrieveFriendsFeed();
+        }
+
+        event.preventDefault();
+    }
+
+    retrieveFriendsFeed()
+    {
+        // Load the feed contents
+        this.retrieveFriendsFeedAsync()
+            .then(res => {this.setState( {
+                postIds: res.postIds,
+                filteredByFriends: true
+            });
+            console.log(this.state.postIds)
+            }
+    );
+    }
+
+    retrieveFriendsFeedAsync = async () => {
+        let url = '/retrieve_friend_posts?userId=' + this.props.myUserId;
+        const response = await fetch(url)
+
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
+        }
+        return json;
     }
 
     render() {
@@ -62,6 +108,8 @@ class Feed extends Component {
             <div className='Feed-container'>
                 <p>Feed Start</p>
                 <AddPost myUserId={this.props.myUserId} refresh={this.refreshFeed} />
+
+                <button type="button" onClick={this.filter} className="btn">{this.state.filteredByFriend ? 'Global' : 'Friends'}</button>
                 {this.renderPosts()}
             </div>
         );

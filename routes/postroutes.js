@@ -28,6 +28,19 @@ exports.retrievePosts = function(req, res){
         })
 };
 
+// '/retrieve_friend_posts/
+exports.retrieveFriendPosts = function(req, res){
+
+    connection.query('SELECT postId FROM SocialPostsCreatedByUser WHERE userId IN (SELECT userId2 FROM Friendwith WHERE userId1 = ?)', req.query.userId,
+        function (err, rows, fields) {
+            if (err) throw err;
+
+            res.send({
+                "postIds": rows
+            })
+        })
+};
+
 // '/get_post'
 exports.getPost = function(req, res){
     connection.query('SELECT message, image, userId FROM SocialPostsCreatedByUser WHERE postId = ?', req.query.postId,
