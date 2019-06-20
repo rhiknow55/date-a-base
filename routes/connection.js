@@ -5,6 +5,8 @@ var mysql      = require('mysql');
 var fs = require('fs');
 var mysql_password = fs.readFileSync('secret', 'utf8');
 
+//console.log(`the password from file: ${mysql_password}`);
+
 var connection = mysql.createConnection({
     host     : '127.0.0.1',
     user     : 'root',
@@ -16,6 +18,7 @@ connection.connect(function(err){
     if(!err) {
         console.log("Database is connected ... ");
     } else {
+        console.log(err);
         console.log("Error connecting database ... ");
         console.log(err)
     }
