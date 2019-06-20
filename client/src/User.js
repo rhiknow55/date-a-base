@@ -48,7 +48,7 @@ class User extends Component {
                 <span>&nbsp;</span>
                 {/*<Feed myUserId={this.props.myUserId} />*/}
                 <Chat myUserId={this.props.myUserId} />
-                <Feed myUserId={1} />
+                <Feed myUserId={this.props.myUserId} />
             </div>
         );
     }
