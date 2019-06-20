@@ -20,7 +20,7 @@ class Register extends Component {
       confirmPassword: "",
       username: "",
       birthday: "",
-      horoscope: "",
+      // horoscope: "",
       // userId: 0,
       // baseId: 0,
       newUser: null
@@ -33,7 +33,7 @@ class Register extends Component {
       this.state.password.length > 0 &&
       this.state.username.length > 0 &&
       this.state.birthday.length > 0 &&
-      this.state.horoscope.length > 0 &&
+      // this.state.horoscope.length > 0 &&
       this.state.password === this.state.confirmPassword
     );
   }
@@ -94,7 +94,7 @@ class Register extends Component {
         loginName: this.state.loginName,
         password: this.state.password,
         username: this.state.username,
-        horoscope: this.state.horoscope,
+        // horoscope: this.state.horoscope,
         birthday: this.state.birthday
       })
     });
@@ -169,14 +169,14 @@ class Register extends Component {
             type="birthday"
           />
         </FormGroup>
-        <FormGroup controlId="horoscope" bsSize="large">
-          <label>Horoscope</label>
-          <FormControl
-            value={this.state.horoscope}
-            onChange={this.handleChange}
-            type="horoscope"
-          />
-        </FormGroup>
+        {/*<FormGroup controlId="horoscope" bsSize="large">*/}
+        {/*  <label>Horoscope</label>*/}
+        {/*  <FormControl*/}
+        {/*    value={this.state.horoscope}*/}
+        {/*    onChange={this.handleChange}*/}
+        {/*    type="horoscope"*/}
+        {/*  />*/}
+        {/*</FormGroup>*/}
         <Button
             block
             bsSize="large"

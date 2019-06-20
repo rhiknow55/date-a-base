@@ -14,13 +14,12 @@ exports.register = function(req,res){
   var newUserId = hashCode(req.body.loginName);
 
   console.log(newUserId)
-  //todo: determine horoscope here
   users={
     "userId":newUserId,
     "loginName":req.body.loginName,
     "password":req.body.password,
     "username":req.body.username,
-    "horoscope":req.body.horoscope,
+    // "horoscope":req.body.horoscope,
     "log":0,
     "birthday":req.body.birthday,
     "baseId":1,
