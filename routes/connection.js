@@ -8,7 +8,7 @@ var mysql_password = fs.readFileSync('secret', 'utf8');
 //console.log(`the password from file: ${mysql_password}`);
 
 var connection = mysql.createConnection({
-    host     : 'localhost',
+    host     : '127.0.0.1',
     user     : 'root',
     password : mysql_password,
     database : 'date-a-base'
@@ -20,6 +20,7 @@ connection.connect(function(err){
     } else {
         console.log(err);
         console.log("Error connecting database ... ");
+        console.log(err)
     }
 });
 
