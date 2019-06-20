@@ -5,7 +5,7 @@ import NotFound from "./containers/NotFound.js";
 import Login from "./Login.js";
 import AppliedRoute from "./AppliedRoute";
 import Register from "./Register.js";
-
+import Admin from "./admin/Admin.js";
 
 
 // export default () =>
@@ -20,6 +20,7 @@ import Register from "./Register.js";
 export default ({ childProps }) =>
   <Switch>
     <AppliedRoute path="/" exact component={Home} props={childProps} />
+    <AppliedRoute path="/admin" exact component={Admin} props={childProps} />
     <AppliedRoute path="/login" exact component={Login} props={childProps} />
     <AppliedRoute path="/register" exact component={Register} props={childProps} />
     { /* catch all unmatched routes */ }

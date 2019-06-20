@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/rhiknow55/date-a-base#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.17.1"
   }
 }

@@ -45,12 +45,6 @@ class Login extends Component {
   handleAlternate(event) {
     event.preventDefault();
     console.log('on click user registration');
-    // this.props.history.push('/register');
-   //  try{
-   //    this.userRegistration()
-   //  } catch (e) {
-   //   alert(e.message);
-   // }
 
   }
 
@@ -83,9 +77,16 @@ class Login extends Component {
       console.log(response_json);
       const userId = response_json.userId;
       const username = response_json.username;
+      const isAdmin = response_json.isAdmin;
+      const jwt = response_json.jwt;
       console.log(`userID: ${userId}`)
-      this.props.userHasAuthenticated(true, userId, username);
-      this.props.history.push("/");
+      this.props.userHasAuthenticated(true, userId, username, isAdmin, jwt);
+      if (isAdmin){
+        this.props.history.push("/admin");
+      } else {
+        this.props.history.push("/");
+      }
+
       // User.setState({
       //   loginName: userLoginName
       // });

@@ -24,24 +24,30 @@ class App extends Component {
 
       this.state = {
         isAuthenticated: false,
+        isAdmin: false,
         userId: -1,
-        username: ''
+        username: '',
+        jwt: null
       };
     }
 
-    userHasAuthenticated = (authenticated, userId, username) => {
+    userHasAuthenticated = (authenticated, userId, username, isAdmin, jwt) => {
       console.log(userId);
       console.log(username);
       console.log("----------")
-      this.setState({ isAuthenticated: authenticated, userId : userId, username : username });
+      this.setState({ isAuthenticated: authenticated, userId : userId, username : username, isAdmin: isAdmin, jwt : jwt });
       console.log(this.state);
       console.log("---end of state---")
+    }
+
+    logout = () => {
+      this.setState({isAuthenticated : false, userId: -1, username: '', isAdmin: false, jwt: null});
     }
 
     componentDidMount() {
         // Call our fetch function below once the component mounts
         this.callBackendAPI()
-            .then(res => this.setState({ data: res.express }))
+            .then(res => this.setState({ data: res.express }))  
             .catch(err => console.log(err));
     }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
@@ -57,7 +63,7 @@ class App extends Component {
 
 
     handleLogout = event => {
-      this.userHasAuthenticated(false);
+      this.logout();
       this.props.history.push("/login");
     }
 
@@ -84,7 +90,9 @@ class App extends Component {
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated,
       myUserId: this.state.userId,
-      username: this.state.username
+      username: this.state.username,
+      isAdmin: this.state.isAdmin,
+      jwt: this.state.jwt
     };
     return (
       <div className="App container">

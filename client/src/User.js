@@ -8,26 +8,24 @@ class User extends Component {
         userId: -1,
         loginName: null,
         username: null,
-        horoscope: null,
+        // horoscope: null,
         log: 0,
         baseId: 0,
         created: null
     };
-
 
     componentDidMount() {
         // Load the user data
         this.retrieveUserData()
             .then(res => this.setState( {
                 username: res.username,
-                horoscope: res.horoscope,
+                // horoscope: res.horoscope,
                 log: res.log,
                 baseId: res.baseId
             }));
     }
 
     retrieveUserData = async () => {
-        
         const response = await fetch('/user_data?userId=' + this.props.myUserId);
         const json = await response.json();
 
@@ -42,7 +40,7 @@ class User extends Component {
             <div className="User">
                 <Profile
                     username={this.state.username}
-                    horoscope={this.state.horoscope}
+                    // horoscope={this.state.horoscope}
                     log={this.state.log}
                     baseId={this.state.baseId}
                     myUserId={this.props.myUserId}
