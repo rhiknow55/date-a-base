@@ -30,7 +30,8 @@ class Profile extends Component
             });
         this.hasAllTrophies()
             .then(res => {
-                
+                console.log('get all user ids that has all trophies');
+
                 let allTrophiesUserIds = res.userIds;
                 for (let i = 0; i < allTrophiesUserIds.length; i++)
                 {
@@ -90,7 +91,7 @@ class Profile extends Component
               return null;
         }
     }
-    
+
     hasAllTrophies = async () => {
         console.log('hasAllTrophies is called');
         console.log("user id: " + this.props.myUserId);

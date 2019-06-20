@@ -40,6 +40,15 @@ app.post('/like_post', post.likePost);
 app.delete('/unlike_post', post.unlikePost);
 app.get('/get_if_like', post.getIfLike);
 
+
+// messageroutes.js
+var message = require('./routes/messageroutes');
+app.get('/retrieve_messages', message.retrieveMessages);
+//app.get('/get_message', message.getMessage)
+app.post('/post_message', message.postMessage);
+app.get('/retrieve_roomIds', message.retrieveRoomIds);
+
+
 // commentroutes.js
 var comment = require('./routes/commentroutes');
 app.get('/retrieve_comments', comment.retrieveComments);

@@ -8,9 +8,15 @@ import Routes from './HomeRoute.js';
 // import Routes from "../routes/";
 import './App.css'
 import './Color.css'
+
+import Chat from './Chat.js'
+
+
+
 import { Link, withRouter } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+
 
 class App extends Component {
     constructor(props) {
@@ -48,6 +54,7 @@ class App extends Component {
         }
         return body;
     };
+
 
     handleLogout = event => {
       this.userHasAuthenticated(false);
@@ -109,6 +116,7 @@ class App extends Component {
         {/*<Home />*/}
         <Routes childProps={childProps} />
       </div>
+
     );
   }
 }
