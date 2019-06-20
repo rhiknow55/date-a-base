@@ -20,6 +20,7 @@ class Chat extends React.Component {
             roomIds: [],
             number: 0,
             room: null,
+            PH: 0
         }
 
         this.sendMessage = this.sendMessage.bind(this)
@@ -49,7 +50,7 @@ class Chat extends React.Component {
     // need to retrieve messages
     retrieveMessages = async () => {
         let url = '/retrieve_messages?userId=' + this.props.myUserId + '&roomId=' + this.state.room;
-        console.log(url)
+        //console.log(url)
         const response = await fetch(url)
         const json = await response.json();
 
@@ -58,6 +59,20 @@ class Chat extends React.Component {
         }
 
 
+        return json;
+    }
+
+
+    retrievePH = async () => {
+        let url = '/retrieve_pH?userId=' + this.props.myUserId;
+        const response = await fetch(url)
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.messages)
+        }
+
+        console.log("weoraofksdojaodsjo")
         return json;
     }
 
@@ -83,6 +98,7 @@ class Chat extends React.Component {
                 number: res.number,
                 room: roomId
             }));
+
 
     }
 
@@ -149,6 +165,12 @@ class Chat extends React.Component {
                 messages: res.messages,
                 number: res.number,
             }));
+
+       // this.retrievePH()
+       //     .then(res => this.setState( {
+       //         // messages: res.postIds
+       //         PH: res.PH,
+       //     }));
     }
 
 
@@ -160,13 +182,15 @@ class Chat extends React.Component {
         //roomIds: [],
          //   number: 0
         //console.log("============")
-        //console.log(this.state)
+        console.log(this.state.roomIds)
 
         return (
         <div className="Chat">
             <h3>Double Click to Join Chat</h3>
             <RoomList rooms={this.state.roomIds} subscribeToRoom={this.subscribeToRoom} loadChat={this.loadChat} roomId={this.state.room} />
-            <MessageList messages={this.state.messages} />
+            <MessageList messages={this.state.messages} myUserId={this.props.myUserId}/>
+            <h5 className='txt'>pH:</h5>>
+            <h4 className="ph">{this.state.messages.length}</h4>>
             <SendMessageForm  sendMessage={this.sendMessage} />
             </div>
     )
