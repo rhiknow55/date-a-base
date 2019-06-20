@@ -47,11 +47,6 @@ app.get('/get_questions', user.retrieveQuestions)
 
 // postroutes.js
 var post = require('./routes/postroutes');
-<<<<<<< HEAD
-app.get('/retrieve_posts', post.retrievePosts)
-app.get('/get_post', post.getPost)
-app.post('/report_post', post.reportPost)
-=======
 app.get('/retrieve_posts', post.retrievePosts);
 app.get('/retrieve_friend_posts', post.retrieveFriendPosts);
 app.get('/get_post', post.getPost);
@@ -60,8 +55,7 @@ app.get('/posts_made_by_user', post.postsMadeByUser);
 app.post('/like_post', post.likePost);
 app.delete('/unlike_post', post.unlikePost);
 app.get('/get_if_like', post.getIfLike);
->>>>>>> master
-
+app.post('/report_post', post.reportPost)
 
 // messageroutes.js
 var message = require('./routes/messageroutes');

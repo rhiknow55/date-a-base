@@ -55,8 +55,6 @@ exports.getPost = function(req, res){
         })
 };
 
-<<<<<<< HEAD
-
 // report post
 exports.reportPost = function(req, res){
     var message = {
@@ -67,27 +65,37 @@ exports.reportPost = function(req, res){
 
     connection.query('INSERT INTO ReportsFromPostByUser ( reportId,postId, userId) VALUES (?, ?, ?)',
         [ message.reportId,message.postId, message.userId],
-=======
-// '/add_post'
-exports.addPost = function(req, res){
-    var post = {
-        "postId": req.body.postId,
-        "message": req.body.message,
-        "userId": parseInt(req.body.userId)
-    }
-
-    connection.query('INSERT INTO SocialPostsCreatedByUser (postId, message, userId) VALUES (?, ?, ?)',
-        [post.postId, post.message, post.userId],
 
         function(err, rows, fields) {
             if (err) throw err;
 
             res.send({
                 "code":200,
-                "success":"post added sucessfully"
+                "success":"msg sent sucessfully"
             });
         })
-}
+};
+
+    // '/add_post'
+    exports.addPost = function(req, res){
+        var post = {
+            "postId": req.body.postId,
+            "message": req.body.message,
+            "userId": parseInt(req.body.userId)
+        }
+
+        connection.query('INSERT INTO SocialPostsCreatedByUser (postId, message, userId) VALUES (?, ?, ?)',
+            [post.postId, post.message, post.userId],
+
+            function(err, rows, fields) {
+                if (err) throw err;
+
+                res.send({
+                    "code":200,
+                    "success":"post added sucessfully"
+                });
+            })
+    }
 
 // '/posts_made_by_user'
 exports.postsMadeByUser = function(req, res)
@@ -113,20 +121,12 @@ exports.likePost = function(req, res)
 {
     connection.query('INSERT INTO UserLikesPost (userId, postId) VALUES (?, ?)',
         [req.body.userId, req.body.postId],
->>>>>>> master
 
         function(err, rows, fields) {
             if (err) throw err;
 
             res.send({
                 "code":200,
-<<<<<<< HEAD
-                "success":"msg sent sucessfully"
-            });
-        })
-};
-
-=======
                 "success":"like added sucessfully"
             });
         })
@@ -166,4 +166,3 @@ exports.getIfLike = function(req, res)
                 });
         })
 }
->>>>>>> master
