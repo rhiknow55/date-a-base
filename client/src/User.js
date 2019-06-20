@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Feed from './Feed.js';
 import Profile from './Profile.js';
 import {CommentSection} from "./Comment";
+import Chat from './Chat.js'
 
 class User extends Component {
     state = {
@@ -49,7 +50,8 @@ class User extends Component {
                     />
                 <span>&nbsp;</span>
                 {/*<Feed myUserId={this.props.myUserId} />*/}
-                <Feed myUserId={1} />
+                <Chat myUserId={this.props.myUserId} />
+                <Feed myUserId={this.props.myUserId} />
             </div>
         );
     }
