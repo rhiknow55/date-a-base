@@ -45,12 +45,6 @@ class Login extends Component {
   handleAlternate(event) {
     event.preventDefault();
     console.log('on click user registration');
-    // this.props.history.push('/register');
-   //  try{
-   //    this.userRegistration()
-   //  } catch (e) {
-   //   alert(e.message);
-   // }
 
   }
 

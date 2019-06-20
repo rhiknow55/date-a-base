@@ -150,7 +150,7 @@ class Profile extends Component
          alert(e.message);
        }
       }
-      
+
 
      handleAlternate(event) {
         event.preventDefault();
@@ -259,7 +259,7 @@ class Profile extends Component
                   </Button>
                 </form>
 
-                <p>Horoscope: {this.props.horoscope}</p>
+                {/*<p>Horoscope: {this.props.horoscope}</p>*/}
                 <p>Points: {this.props.log}</p>
                 {this.renderHasAllTrofies()}
                 {this.renderTrofiess()}
