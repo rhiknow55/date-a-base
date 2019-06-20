@@ -6,6 +6,7 @@ import './Color.css'
 import Chat from './Chat.js'
 
 
+
 class App extends Component {
     state = {
         data: null
@@ -28,18 +29,25 @@ class App extends Component {
         return body;
     };
 
+
+
+
     render() {
+        //<Login />
+
         return (
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Date-a-base</h1>
                 </header>
 
-                <Chat />
+
 
                 <p className="App-intro">{this.state.data}</p>
-                <Login />
-                <User myUserId={1}/>
+
+
+                <Chat myUserId={1} />
+
             </div>
     );
     }

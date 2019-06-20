@@ -1,4 +1,5 @@
 import React from 'react'
+import { PropTypes } from 'react'
 
 class SendMessageForm extends React.Component {
 
@@ -9,7 +10,9 @@ class SendMessageForm extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+
     }
+
 
     handleChange(e) {
         this.setState({
@@ -19,8 +22,10 @@ class SendMessageForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        console.log(this.state.message)
-        /** send off the message */
+        this.props.sendMessage(this.state.message)
+        this.setState({
+            message: ''
+        })
     }
 
     render() {

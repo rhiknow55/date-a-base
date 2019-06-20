@@ -32,6 +32,15 @@ var post = require('./routes/postroutes');
 app.get('/retrieve_posts', post.retrievePosts)
 app.get('/get_post', post.getPost)
 
+
+// messageroutes.js
+var message = require('./routes/messageroutes');
+app.get('/retrieve_messages', message.retrieveMessages);
+//app.get('/get_message', message.getMessage)
+app.post('/post_message', message.postMessage);
+app.get('/retrieve_roomIds', message.retrieveRoomIds);
+
+
 // commentroutes.js
 var comment = require('./routes/commentroutes');
 app.get('/retrieve_comments', comment.retrieveComments);
