@@ -4,7 +4,7 @@ class RoomList extends React.Component {
 
     click(sessionId){
         this.props.subscribeToRoom(sessionId)
-        console.log('loaaaaad')
+        //console.log('loaaaaad')
 
 
     }
@@ -25,7 +25,7 @@ class RoomList extends React.Component {
                                 <a
                                     onClick={() => this.click(room.sessionId)}
                                     href="#">
-                                    # {room.userId}
+                                    # {room.userName}
                                 </a>
                             </li>
                         )

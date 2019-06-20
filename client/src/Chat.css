@@ -21,7 +21,7 @@ html, body {
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 60px;
     grid-template-areas:
-            "h h h h h h"
+            "h h h h t p"
             "r m m m m m"
             "r m m m m m"
             "r m m m m m"
@@ -31,6 +31,14 @@ html, body {
 
 .headd {
     grid-area: h;
+}
+
+.txt {
+    grid-area: t;
+}
+
+.ph {
+    grid-area: p;
 }
 
 .rooms-list {

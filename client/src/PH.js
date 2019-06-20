@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 
 
-class pH extends React.Component {
+class PH extends React.Component {
     constructor() {
         super()
         this.state = {
@@ -40,10 +40,10 @@ class pH extends React.Component {
     render() {
         return (
             <div className="pH">
-
+                {this.state.pH}
             </div>
         )
     }
 }
 
-export default pH
+export default PH

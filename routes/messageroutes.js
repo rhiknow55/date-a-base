@@ -37,7 +37,7 @@ exports.retrieveRoomIds = function(req, res){
 
 
     // not used:==  message, chatsessionid, userid as senderid, timestamp
-    connection.query('SELECT distinct sessionId, userId1, userId2 FROM UsersParticipateChat WHERE userId1 = ? OR userId2 = ?', [req.query.userId,req.query.userId],
+    connection.query('SELECT distinct sessionId, userId1, us.username as username1, userId2 , us2.username as username2 FROM UsersParticipateChat  INNER JOIN Users as us on UsersParticipateChat.userId1 = us.userId INNER JOIN Users as us2 on UsersParticipateChat.userId2 = us2.userId WHERE userId1 = ? OR userId2 = ?', [req.query.userId,req.query.userId],
         function (err, rows, fields) {
             if (err) throw err;
 
@@ -49,8 +49,11 @@ exports.retrieveRoomIds = function(req, res){
                 if (req.query.userId == rows[i].userId1) {
 
                     rows[i].userId = rows[i].userId2
+                    rows[i].userName = rows[i].username2
                 } else {
                     rows[i].userId = rows[i].userId1
+                    rows[i].userName = rows[i].username1
+
                 }
                 rooms.push(rows[i]);
             }
@@ -98,3 +101,15 @@ exports.postMessage = function(req, res)
             });
         })
 }
+
+
+// '/get_ph'
+exports.getpH = function(req, res){
+
+    connection.query('SELECT count(commentid) as count FROM CommentsFromPostByUser INNER JOIN SocialPostsCreatedByUser ON CommentsFromPostByUser.postId=SocialPostsCreatedByUser.postId WHERE CommentsFromPostByUser.userId = ?', req.query.userId,
+        function (err, rows, fields) {
+            if (err) throw err;
+
+            res.send(rows[0].count)
+        })
+};

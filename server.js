@@ -49,6 +49,7 @@ app.get('/retrieve_messages', message.retrieveMessages);
 //app.get('/get_message', message.getMessage)
 app.post('/post_message', message.postMessage);
 app.get('/retrieve_roomIds', message.retrieveRoomIds);
+app.get('/retrieve_pH', message.getpH);
 
 
 // commentroutes.js

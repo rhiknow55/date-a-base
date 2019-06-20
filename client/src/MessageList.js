@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import Message from './Message.js';
-
+import PH from './PH.js'
 
 
 
 class MessageList extends React.Component {
     render() {
+        console.log("====================" + this.props.myUserId)
         return (
             <div className="message-list">
                 {this.props.messages.map((message, index) => {
