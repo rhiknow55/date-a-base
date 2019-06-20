@@ -2,15 +2,25 @@ var connection = require('./connection.js');
 
 //'/register'
 exports.register = function(req,res){
-  // console.log("req",req.body);
   var today = new Date();
-  var users={
-    "userId":req.body.userId,
+
+  hashCode = function(s) {
+    var h = 0, l = s.length, i = 0;
+    if ( l > 0 )
+      while (i < l)
+        h = (h << 5) + h + s.charCodeAt(i++) | 0;
+    return Math.abs(h);
+  };
+  var newUserId = hashCode(req.body.loginName);
+
+  console.log(newUserId)
+  //todo: determine horoscope here
+  users={
+    "userId":newUserId,
     "loginName":req.body.loginName,
     "password":req.body.password,
     "username":req.body.username,
     "horoscope":req.body.horoscope,
-    //"emailAddress":req.body.emailAddress,
     "log":0,
     "birthday":req.body.birthday,
     "baseId":1,
@@ -41,36 +51,19 @@ exports.login = function(req,res){
   if (error) {
     // console.log("error ocurred",error);
     res.sendStatus(400).send('error occurred');
-    // res.send({
-    //   "code":400,
-    //   "failed":"error ocurred"
-    // })
   }else{
     // console.log('The solution is: ', results);
+    console.log(results);
     if(results.length >0){
       if(results[0].password == password){
-        res.status(200).send('login sucessfull!');
-        // res.send({
-        //   "code":200,
-        //   "success":"login sucessfull"
-        //     });
+        res.status(200).json({userId : results[0].userId, username : results[0].username});
       }
       else{
-        //res.sendStatus(400);
         res.status(400).send('loginName and password does not match');
-        // res.send({
-        //   "code":400,
-        //   "success":"loginName and password does not match"
-        //     });
       }
     }
     else{
       res.status(404).send('loginName does not exits');
-      // res.send({
-      //   "code":404,
-      //   // "code":404,
-      //   "success":"loginName does not exits"
-      //     });
     }
   }
   });

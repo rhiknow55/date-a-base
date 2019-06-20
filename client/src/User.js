@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import Feed from './Feed.js';
+import Profile from './Profile.js';
+import {CommentSection} from "./Comment";
 
 class User extends Component {
     state = {
+        userId: -1,
+        loginName: null,
         username: null,
         horoscope: null,
         log: 0,
-        baseId: 0
+        baseId: 0,
+        created: null
     };
+
 
     componentDidMount() {
         // Load the user data
@@ -21,8 +27,8 @@ class User extends Component {
     }
 
     retrieveUserData = async () => {
-        var userId = 2
-        const response = await fetch('/user_data?userId=' + userId);
+        
+        const response = await fetch('/user_data?userId=' + this.props.myUserId);
         const json = await response.json();
 
         if (response.status !== 200) {
@@ -39,27 +45,14 @@ class User extends Component {
                     horoscope={this.state.horoscope}
                     log={this.state.log}
                     baseId={this.state.baseId}
+                    myUserId={this.props.myUserId}
                     />
-                <Feed myUserId={this.props.myUserId} />
+                <span>&nbsp;</span>
+                {/*<Feed myUserId={this.props.myUserId} />*/}
+                <Feed myUserId={1} />
             </div>
         );
     }
 }
-
-class Profile extends Component
-{
-    render() {
-        return (
-            <div>
-                <p>This is Profile</p>
-                Username = {this.props.username}
-                Horoscope = {this.props.horoscope}
-                LOG = {this.props.log}
-                BaseId = {this.props.baseId}
-            </div>
-        );
-    }
-}
-
 
 export default User;

@@ -1,0 +1,22 @@
+.Profile-container {
+    border-radius: 25px;
+    padding: 10px;
+    color: darkolivegreen;
+    background-color: var(--hitgray);
+}
+
+/*.Profile .lander h1 {*/
+/*  font-family: "Open Sans", sans-serif;*/
+/*  font-weight: 600;*/
+/*  color: #E0E0AA;*/
+/*}*/
+
+/*@media all and (min-width: 480px) {*/
+/*  .Profile {*/
+/*    padding: 60px 0;*/
+/*  }*/
+
+  /*.Profile form {*/
+  /*  margin: 0 auto;*/
+  /*  max-width: 320px;*/
+  /*}*/

@@ -5,6 +5,8 @@ var mysql      = require('mysql');
 var fs = require('fs');
 var mysql_password = fs.readFileSync('secret', 'utf8');
 
+console.log(`the password from file: ${mysql_password}`);
+
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',

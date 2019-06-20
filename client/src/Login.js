@@ -27,7 +27,8 @@ class Login extends Component {
     event.preventDefault();
 
     try{
-      this.userLogin()
+      this.userLogin();
+      // this.props.history.push("/user");
     } catch (e) {
      alert(e.message);
    }
@@ -41,6 +42,17 @@ class Login extends Component {
     });
   }
 
+  handleAlternate(event) {
+    event.preventDefault();
+    console.log('on click user registration');
+    // this.props.history.push('/register');
+   //  try{
+   //    this.userRegistration()
+   //  } catch (e) {
+   //   alert(e.message);
+   // }
+
+  }
 
   userLogin = async () => {
     var userLoginName = this.state.loginName;
@@ -66,7 +78,18 @@ class Login extends Component {
          alert("LoginName and password do not match");
       }
     } else {
-      alert("Successfully logged in");
+      console.log("Successfully logged in");
+      const response_json = await response.json();
+      console.log(response_json);
+      const userId = response_json.userId;
+      const username = response_json.username;
+      console.log(`userID: ${userId}`)
+      this.props.userHasAuthenticated(true, userId, username);
+      this.props.history.push("/");
+      // User.setState({
+      //   loginName: userLoginName
+      // });
+      // hashHistory.push('/user')
     }
 
     //return body;
@@ -101,6 +124,13 @@ class Login extends Component {
           >
             Login
           </Button>
+          {/*<Button*/}
+          {/*    block*/}
+          {/*    bsSize="large"*/}
+          {/*    onClick={this.handleAlternate.bind(this)}*/}
+          {/*>*/}
+          {/*  Register*/}
+          {/*</Button>*/}
         </form>
       </div>
     );

@@ -13,7 +13,7 @@ app.use(function(req, res, next) {
 
 var router = express.Router();
 // test route
-router.get('/', function(req, res) {
+app.get('/', function(req, res) {
     res.json({ message: 'welcome to our upload module apis' });
 });
 
@@ -26,6 +26,8 @@ app.post('/login', login.login);
 // userroutes.js
 var user = require('./routes/userroutes');
 app.get('/user_data', user.userData)
+app.get('/get_trophies', user.retrieveTrophies)
+app.get('/has_all_trophies', user.usersHasAllTrophies)
 
 // postroutes.js
 var post = require('./routes/postroutes');
