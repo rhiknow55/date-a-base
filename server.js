@@ -33,6 +33,7 @@ app.get('/has_all_trophies', user.usersHasAllTrophies)
 var post = require('./routes/postroutes');
 app.get('/retrieve_posts', post.retrievePosts)
 app.get('/get_post', post.getPost)
+app.post('/report_post', post.reportPost)
 
 
 // messageroutes.js

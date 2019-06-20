@@ -42,3 +42,25 @@ exports.getPost = function(req, res){
         })
 };
 
+
+// report post
+exports.reportPost = function(req, res){
+    var message = {
+        "reportId": req.body.reportId,
+        "postId": req.body.postId,
+        "userId": req.body.userId
+    }
+
+    connection.query('INSERT INTO ReportsFromPostByUser ( reportId,postId, userId) VALUES (?, ?, ?)',
+        [ message.reportId,message.postId, message.userId],
+
+        function(err, rows, fields) {
+            if (err) throw err;
+
+            res.send({
+                "code":200,
+                "success":"msg sent sucessfully"
+            });
+        })
+};
+

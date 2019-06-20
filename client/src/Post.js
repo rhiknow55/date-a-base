@@ -75,6 +75,40 @@ class Post extends Component
         this.commentSection.loadComments();
     }
 
+
+
+    // report
+
+    reportPost = async (postId) =>
+    {
+        let url = '/report_post';
+        //console.log("============")
+        //console.log(this.props.myUserId)
+        //console.log(this.state.roomIds[0].sessionId)
+        //console.log(this.state.number)
+        //console.log(JSON.stringify({chatMessageId: chatmessageid, message: this.state.text, chatSessionId: this.state.roomIds[0].sessionId, userId: this.props.myUserId}))
+        //console.log("adsfasdfsdfsdfsdf" +postId+this.props.myUserId)
+        const response = await fetch(url,
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({reportId: (postId*10+this.props.myUserId), postId: postId, userId: this.props.myUserId})
+            });
+
+        const json = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(json.message)
+        }
+
+        return json;
+    }
+
+
+
     render() {
         return (
             <div className="Post-container">
@@ -84,6 +118,11 @@ class Post extends Component
 
                 <CommentSection onRef={ref => (this.commentSection = ref)} postId={this.state.postId}/>
                 <AddComment postId={this.state.postId} myUserId={this.props.myUserId} refresh={this.refreshCommentSection}/>
+                <a
+                    onClick={() => this.reportPost(this.state.postId)}
+                    href="#">
+                    # Report
+                </a>
             </div>
         );
     }
