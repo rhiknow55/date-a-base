@@ -3,6 +3,7 @@ var express    = require("express");
 var bodyParser = require('body-parser');
 var app = express();
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
@@ -11,11 +12,24 @@ app.use(function(req, res, next) {
     next();
 });
 
+
+
+
+
 var router = express.Router();
 // test route
 app.get('/', function(req, res) {
     res.json({ message: 'welcome to our upload module apis' });
 });
+
+// ADMIN SECTION BEGIN --------
+var admin = require('./routes/adminroutes');
+app.get('/admin/users', admin.get_all_users);
+app.get('/admin/most_basic_users', admin.get_most_basic_users);
+app.get('/admin/comments', admin.get_all_comments);
+app.post('/admin/delete_comment', admin.delete_comment);
+// ADMIN SECTION END -----
+
 
 // loginroutes.js
 var login = require('./routes/loginroutes');
