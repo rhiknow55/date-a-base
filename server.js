@@ -3,6 +3,7 @@ var express    = require("express");
 var bodyParser = require('body-parser');
 var app = express();
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
@@ -11,11 +12,24 @@ app.use(function(req, res, next) {
     next();
 });
 
+
+
+
+
 var router = express.Router();
 // test route
 app.get('/', function(req, res) {
     res.json({ message: 'welcome to our upload module apis' });
 });
+
+// ADMIN SECTION BEGIN --------
+var admin = require('./routes/adminroutes');
+app.get('/admin/users', admin.get_all_users);
+app.get('/admin/most_basic_users', admin.get_most_basic_users);
+app.get('/admin/comments', admin.get_all_comments);
+app.post('/admin/delete_comment', admin.delete_comment);
+// ADMIN SECTION END -----
+
 
 // loginroutes.js
 var login = require('./routes/loginroutes');
@@ -27,13 +41,26 @@ app.post('/login', login.login);
 var user = require('./routes/userroutes');
 app.get('/user_data', user.userData)
 app.get('/get_trophies', user.retrieveTrophies)
-app.get('/has_all_trophies', user.usersHasAllTrophies)
+app.get('/has_all_trophies', user.usersHasAllTrophies);
+app.post('/update_user_name', user.updateUserName);
+app.get('/get_questions', user.retrieveQuestions)
 
 // postroutes.js
 var post = require('./routes/postroutes');
+<<<<<<< HEAD
 app.get('/retrieve_posts', post.retrievePosts)
 app.get('/get_post', post.getPost)
 app.post('/report_post', post.reportPost)
+=======
+app.get('/retrieve_posts', post.retrievePosts);
+app.get('/retrieve_friend_posts', post.retrieveFriendPosts);
+app.get('/get_post', post.getPost);
+app.post('/add_post', post.addPost);
+app.get('/posts_made_by_user', post.postsMadeByUser);
+app.post('/like_post', post.likePost);
+app.delete('/unlike_post', post.unlikePost);
+app.get('/get_if_like', post.getIfLike);
+>>>>>>> master
 
 
 // messageroutes.js

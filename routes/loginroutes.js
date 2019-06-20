@@ -1,4 +1,6 @@
 var connection = require('./connection.js');
+var jwt = require('jsonwebtoken');
+var secret = "secret";
 
 //'/register'
 exports.register = function(req,res){
@@ -14,13 +16,12 @@ exports.register = function(req,res){
   var newUserId = hashCode(req.body.loginName);
 
   console.log(newUserId)
-  //todo: determine horoscope here
   users={
     "userId":newUserId,
     "loginName":req.body.loginName,
     "password":req.body.password,
     "username":req.body.username,
-    "horoscope":req.body.horoscope,
+    // "horoscope":req.body.horoscope,
     "log":0,
     "birthday":req.body.birthday,
     "baseId":1,
@@ -44,28 +45,39 @@ exports.register = function(req,res){
 }
 
 //'/login'
-exports.login = function(req,res){
-  var loginName= req.body.loginName;
-  var password = req.body.password;
-  connection.query('SELECT * FROM users WHERE loginName = ?',[loginName], function (error, results, fields) {
-  if (error) {
-    // console.log("error ocurred",error);
-    res.sendStatus(400).send('error occurred');
-  }else{
-    // console.log('The solution is: ', results);
-    console.log(results);
-    if(results.length >0){
-      if(results[0].password == password){
-        res.status(200).json({userId : results[0].userId, username : results[0].username});
-      }
-      else{
-        res.status(400).send('loginName and password does not match');
-      }
-    }
-    else{
-      res.status(404).send('loginName does not exits');
-    }
-  }
-  });
+exports.login = function (req, res) {
+    var loginName = req.body.loginName;
+    var password = req.body.password;
+    connection.query('SELECT * FROM users WHERE loginName = ?', [loginName], function (error, results, fields) {
+        if (error) {
+            // console.log("error ocurred",error);
+            res.sendStatus(400).send('error occurred');
+        } else {
+            // console.log('The solution is: ', results);
+            console.log(results);
+            if (results.length > 0) {
+                if (results[0].password == password) {
+                    let token = jwt.sign({ userId: results[0].userId, isAdmin: false }, secret);
+                    res.status(200).json({ userId: results[0].userId, username: results[0].username, jwt: token, isAdmin: false });
+                }
+            }
+            else {
+                connection.query('SELECT * FROM systemadmins WHERE loginNAme = ?', [loginName], function(err, results, field){
+                    if (err){
+                        res.sendStatus(400).send('error occurred');
+                    } else {
+                        if (results.length > 0){
+                            if (results[0].password == password) {
+                                let token = jwt.sign({ userId: results[0].userId, isAdmin: true }, secret);
+                                res.status(200).json({ userId: results[0].userId, username: results[0].username, jwt: token, isAdmin: true });
+                            }
+                        } else {
+                            res.status(404).send('loginName does not exits');
+                        }
+                    }
+                })
+            }
+        }
+    });
 }
 

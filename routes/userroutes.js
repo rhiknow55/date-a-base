@@ -61,5 +61,43 @@ exports.usersHasAllTrophies = function(req,res){
 
 };
 
+//'/update_user_name'
+exports.updateUserName = function(req, res){
+
+    var sql = `UPDATE users SET username = ? WHERE userId = ?`;
+    var data = [req.body.newUserName, req.body.userId];
+
+    connection.query(sql, data, function (err, results, fields) {
+       //process results
+        if (err) {
+            console.log('error occur');
+        }else{
+            // res.sendStatus(200).send('updated');
+            res.sendStatus(200);
+        }
+    });
+};
+
+//'/get_questions'
+exports.retrieveQuestions = function(req,res){
+  let questions = [];
+  connection.query('SELECT questionId, question  FROM sortinghatquestions', function (error, results, fields) {
+  if (error) {
+    // console.log("error ocurred",error);
+    res.sendStatus(400).send('error occurred');
+  }else{
+        for (let i = 0; i < results.length; ++i)
+        {
+            questions.push(results[i]);
+        }
+
+        res.send({
+            "questions": questions
+        })
+  }
+  });
+};
+
+
 
 
