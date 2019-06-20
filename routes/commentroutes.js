@@ -23,7 +23,6 @@ exports.retrieveComments = function(req, res)
 // '/add_comment'
 exports.addComment = function(req, res)
 {
-    var today = new Date().getTime();
     var comment = {
         "commentId": req.body.commentId,
         "message": req.body.message,

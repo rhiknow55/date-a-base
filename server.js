@@ -41,11 +41,30 @@ app.post('/login', login.login);
 var user = require('./routes/userroutes');
 app.get('/user_data', user.userData)
 app.get('/get_trophies', user.retrieveTrophies)
+app.get('/has_all_trophies', user.usersHasAllTrophies);
+app.post('/update_user_name', user.updateUserName);
+app.get('/get_questions', user.retrieveQuestions)
 
 // postroutes.js
 var post = require('./routes/postroutes');
-app.get('/retrieve_posts', post.retrievePosts)
-app.get('/get_post', post.getPost)
+app.get('/retrieve_posts', post.retrievePosts);
+app.get('/retrieve_friend_posts', post.retrieveFriendPosts);
+app.get('/get_post', post.getPost);
+app.post('/add_post', post.addPost);
+app.get('/posts_made_by_user', post.postsMadeByUser);
+app.post('/like_post', post.likePost);
+app.delete('/unlike_post', post.unlikePost);
+app.get('/get_if_like', post.getIfLike);
+
+
+// messageroutes.js
+var message = require('./routes/messageroutes');
+app.get('/retrieve_messages', message.retrieveMessages);
+//app.get('/get_message', message.getMessage)
+app.post('/post_message', message.postMessage);
+app.get('/retrieve_roomIds', message.retrieveRoomIds);
+app.get('/retrieve_pH', message.getpH);
+
 
 // commentroutes.js
 var comment = require('./routes/commentroutes');

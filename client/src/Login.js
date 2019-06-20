@@ -45,12 +45,6 @@ class Login extends Component {
   handleAlternate(event) {
     event.preventDefault();
     console.log('on click user registration');
-    // this.props.history.push('/register');
-   //  try{
-   //    this.userRegistration()
-   //  } catch (e) {
-   //   alert(e.message);
-   // }
 
   }
 
@@ -69,12 +63,6 @@ class Login extends Component {
         password: userPassword,
       })
     });
-
-    // let Router = window.ReactRouter;
-    // let RouteHandler = Router.RouteHandler;
-    // let Route = Router.Route;
-    // let DefaultRoute = Router.DefaultRoute;
-    // let hashHistory = Router.hashHistory;
 
     if (response.status !== 200) {
         //throw Error(body.message)

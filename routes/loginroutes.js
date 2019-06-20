@@ -3,36 +3,45 @@ var jwt = require('jsonwebtoken');
 var secret = "secret";
 
 //'/register'
-exports.register = function (req, res) {
-    // console.log("req",req.body);
-    var today = new Date();
-    var users = {
-        "userId": req.body.userId,
-        "loginName": req.body.loginName,
-        "password": req.body.password,
-        "username": req.body.username,
-        "horoscope": req.body.horoscope,
-        //"emailAddress":req.body.emailAddress,
-        "log": 0,
-        "birthday": req.body.birthday,
-        "baseId": 1,
-        "created": today
-    }
-    connection.query('INSERT INTO users SET ?', users, function (error, results, fields) {
-        if (error) {
-            console.log("error ocurred", error);
-            res.send({
-                "code": 400,
-                "failed": "error ocurred"
-            })
-        } else {
-            console.log('The solution is: ', results);
-            res.send({
-                "code": 200,
-                "success": "user registered sucessfully"
-            });
-        }
-    });
+exports.register = function(req,res){
+  var today = new Date();
+
+  hashCode = function(s) {
+    var h = 0, l = s.length, i = 0;
+    if ( l > 0 )
+      while (i < l)
+        h = (h << 5) + h + s.charCodeAt(i++) | 0;
+    return Math.abs(h);
+  };
+  var newUserId = hashCode(req.body.loginName);
+
+  console.log(newUserId)
+  users={
+    "userId":newUserId,
+    "loginName":req.body.loginName,
+    "password":req.body.password,
+    "username":req.body.username,
+    // "horoscope":req.body.horoscope,
+    "log":0,
+    "birthday":req.body.birthday,
+    "baseId":1,
+    "created":today
+  }
+  connection.query('INSERT INTO users SET ?',users, function (error, results, fields) {
+  if (error) {
+    console.log("error ocurred",error);
+    res.send({
+      "code":400,
+      "failed":"error ocurred"
+    })
+  }else{
+    console.log('The solution is: ', results);
+    res.send({
+      "code":200,
+      "success":"user registered sucessfully"
+        });
+  }
+  });
 }
 
 //'/login'
