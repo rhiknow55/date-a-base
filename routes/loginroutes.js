@@ -2,15 +2,25 @@ var connection = require('./connection.js');
 
 //'/register'
 exports.register = function(req,res){
-  // console.log("req",req.body);
   var today = new Date();
-  var users={
-    "userId":req.body.userId,
+
+  hashCode = function(s) {
+    var h = 0, l = s.length, i = 0;
+    if ( l > 0 )
+      while (i < l)
+        h = (h << 5) + h + s.charCodeAt(i++) | 0;
+    return Math.abs(h);
+  };
+  var newUserId = hashCode(req.body.loginName);
+
+  console.log(newUserId)
+  //todo: determine horoscope here
+  users={
+    "userId":newUserId,
     "loginName":req.body.loginName,
     "password":req.body.password,
     "username":req.body.username,
     "horoscope":req.body.horoscope,
-    //"emailAddress":req.body.emailAddress,
     "log":0,
     "birthday":req.body.birthday,
     "baseId":1,

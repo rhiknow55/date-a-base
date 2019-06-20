@@ -70,12 +70,6 @@ class Login extends Component {
       })
     });
 
-    // let Router = window.ReactRouter;
-    // let RouteHandler = Router.RouteHandler;
-    // let Route = Router.Route;
-    // let DefaultRoute = Router.DefaultRoute;
-    // let hashHistory = Router.hashHistory;
-
     if (response.status !== 200) {
         //throw Error(body.message)
       if (response.status == 404) {
