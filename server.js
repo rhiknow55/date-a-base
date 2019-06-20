@@ -27,7 +27,9 @@ app.post('/login', login.login);
 var user = require('./routes/userroutes');
 app.get('/user_data', user.userData)
 app.get('/get_trophies', user.retrieveTrophies)
-app.get('/has_all_trophies', user.usersHasAllTrophies)
+app.get('/has_all_trophies', user.usersHasAllTrophies);
+app.post('/update_user_name', user.updateUserName);
+app.get('/get_questions', user.retrieveQuestions)
 
 // postroutes.js
 var post = require('./routes/postroutes');

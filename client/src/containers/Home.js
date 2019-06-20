@@ -17,8 +17,8 @@ class Home extends Component {
       return (
         <div className="Home">
           <div className="lander">
-            <h1>test - Home Container</h1>
-            <p>----</p>
+            <h1>Hi</h1>
+            {/*<p>----</p>*/}
           </div>
           <User myUserId={this.props.myUserId}/>
         </div>
